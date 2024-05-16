@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+.img-hero {
+  position: absolute;
+  background-image: url("./assets/image-hero-mobile.webp");
+  background-repeat: no-repeat;
+  width: 435px;
+  height: 409px;
+  top: 17px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 768px) {
+  .img-hero {
+    background-image: url("./assets/image-hero-tablet.webp");
+    width: 640px;
+    height: 740px;
+    top: -261px;
+    left: -130px;
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 1024px) {
+  .img-hero {
+    background-image: url("./assets/image-hero-desktop.webp");
+    width: 991px;
+    height: 936px;
+    top: -403px;
+    left: -177px;
+    transform: translateX(0);
+  }
+}
