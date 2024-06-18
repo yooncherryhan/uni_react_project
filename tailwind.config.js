@@ -1,9 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 import { fontFamily } from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
-
+const { nextui } = require("@nextui-org/react");
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -36,6 +40,7 @@ export default {
       },
     },
   },
+  darkMode: "class",
   plugins: [
     plugin(function ({ addComponents }) {
       addComponents({
@@ -77,5 +82,6 @@ export default {
         },
       });
     }),
+    nextui(),
   ],
 };
