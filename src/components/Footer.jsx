@@ -5,10 +5,10 @@ const Footer = () => {
     <footer className="bg-n-4 relative">
       <div className="container flex items-center justify-between py-10 lg:py-8">
         <a className="w-[89px] lg:w-[114px]" href="#">
-          <img src={logoLight} alt="skilled" />
+          {/* <img src={logoLight} alt="skilled" /> */}
         </a>
 
-        <button className="btn-three">Get Started</button>
+
       </div>
 
       <div className="font-jakarta absolute bottom-2 left-1/2 -translate-x-1/2 font-inter text-dark-purple text-center text-xs text-n-1">

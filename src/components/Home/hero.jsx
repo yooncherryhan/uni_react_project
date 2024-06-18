@@ -2,7 +2,7 @@ import shape1 from "../../assets/images/shape-01.svg";
 import shape2 from "../../assets/images/shape-02.svg";
 import shape3 from "../../assets/images/shape-03.svg";
 import shape4 from "../../assets/images/shape-04.svg";
-import Hero from "../../assets/images/hero.png";
+import Hero from "../../assets/images/e-lea.gif";
 
 const HeroSection = () => {
   return (
@@ -17,15 +17,15 @@ const HeroSection = () => {
           />
           <img src={shape2} alt="shape2" className="xc 2xl:ud-block h u p va" />
           <img src={shape3} alt="shape3" className="xc 2xl:ud-block h v w va" />
-          <img src={shape4} alt="shape4" className="h q r" />
-          <img src={Hero} alt="Woman" className="h q r ua" />
+          <img src={Hero} alt="shape4" className="h q r pt-[100px]" />
+
         </div>
 
         {/* <!-- Hero Content --> */}
         <div className="bb ze ki xn 2xl:ud-px-0">
           <div className="tc _o">
             <div className="animate_left jn/2">
-              <h1 className="fk vj zp or kk wm wb w-[600px] font-black">
+              <h1 className="fk vj zp or kk wm wb w-full font-black">
                 We specialize in UI/UX, Web Development, Digital Marketing.
               </h1>
               <p className="fq">
