@@ -10,6 +10,16 @@ export default {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: {
+          sm: "1rem",
+          md: "2rem",
+          lg: "2.5rem",
+          xl: "3rem",
+          "2xl": "4rem",
+        },
+      },
       colors: {
         color: {
           1: "#F74780",
