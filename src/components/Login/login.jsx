@@ -9,6 +9,7 @@ const Login = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const variant = 'bordered'
     const Login = async () => {
         const info = {
             email: email,
@@ -20,7 +21,7 @@ const Login = () => {
             .then(function (res) {
                 Swal.fire({
                     title: "Successful!",
-                    text: "You Created Treatment!",
+                    text: "Login As Admin!",
                     icon: "success",
                     // showCancelButton: true,
 
@@ -28,12 +29,15 @@ const Login = () => {
                     timer: 2000,
                 });
                 console.log(res.data.data, 'res')
+
                 if (res.data.data.user.role === 'student') {
-                    localStorage.setItem('data', res.data.data)
+
+                    localStorage.setItem('data', res.data.data.id)
                     navigate('/')
                 }
                 if (res.data.data.user.role === 'admin') {
-                    localStorage.setItem('data', res.data.data)
+
+                    localStorage.setItem('data', res.data.data.id)
                     navigate('/admin')
                 }
 
@@ -78,6 +82,8 @@ const Login = () => {
                                             {/* <p className="mb-4">Please login to your account</p> */}
                                             {/* <!--Username input--> */}
                                             <Input
+                                                variant={variant}
+                                                className='bg-white'
                                                 type="text"
                                                 placeholder="Email or Username"
                                                 onChange={(e) => setEmail(e.target.value)}
@@ -85,6 +91,8 @@ const Login = () => {
 
                                             {/* <!--Password input--> */}
                                             <Input
+                                                variant={variant}
+                                                className='bg-white'
                                                 type="password"
                                                 placeholder="Password"
                                                 onChange={(e) => setPassword(e.target.value)}

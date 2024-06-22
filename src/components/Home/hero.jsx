@@ -17,7 +17,7 @@ const HeroSection = () => {
           />
           <img src={shape2} alt="shape2" className="xc 2xl:ud-block h u p va" />
           <img src={shape3} alt="shape3" className="xc 2xl:ud-block h v w va" />
-          <img src={Hero} alt="shape4" className="h q r pt-[100px]" />
+          <img src={Hero} alt="shape4" className="h q r pt-[100px] mt-10" />
 
         </div>
 

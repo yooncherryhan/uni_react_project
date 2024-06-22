@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 
-
+import Logo from '../../assets/images/ellogo.png'
 import {
     Navbar,
     NavbarMenu,
@@ -25,7 +25,7 @@ export default function App() {
                 <div className='flex sm:gap-10 gap-20  xl:gap-5 2xl:gap-[50px]  w-full  justify-between sm:justify-between lg:justify-around '>
                     <div className=''>
                         <Image
-
+                            src={Logo}
                             className={isMenuOpen ? "hidden" : "w-[200px] md:w-[200px] xl:w-[250px] 2xl:w-[300px] 2xl:h-[120px]"}
                         />
                     </div>

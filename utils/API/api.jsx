@@ -1,13 +1,14 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 const token = localStorage.getItem("token");
+
 const url = 'http://localhost:5000/api/'
 const api = axios.create({
     baseURL: url,
-    headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-    },
+    // headers: {
+    //     Authorization: `Bearer ${token}`,
+    //     "Content-Type": "application/json",
+    // },
 });
 
 export const ImageURL =
