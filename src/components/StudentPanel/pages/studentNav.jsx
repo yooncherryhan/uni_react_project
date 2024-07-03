@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 
-import Logo from '../../assets/images/ellogo.png'
+import Logo from '../../../assets/images/ellogo.png'
 import {
     Navbar,
     NavbarMenu,
@@ -13,12 +13,28 @@ import {
 } from "@nextui-org/react";
 
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-export default function NavBar() {
+export default function StudentNav() {
     const location = useLocation()
     const ID = location.pathname.split('/')[2]
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.removeItem("data");
+        Swal.fire({
+            title: "Successful!",
+            text: "Logout From Student!",
+            icon: "success",
+            // showCancelButton: true,
+
+            showConfirmButton: false,
+            timer: 2000,
+        });
+        navigate("/");
+    };
     return (
         <>
             <div className='fixed bg-white z-50  md:shadow-md lg:shadow-lg w-full  md:p-5 lg:p-6 2xl:p-10 '>
@@ -51,65 +67,10 @@ export default function NavBar() {
                                 Home
                             </Link>
                         </span>
-                        <span className='hover:-translate-y-1 hover:scale-110 duration-500'>
-                            <Link
-                                to='/about'
-                                className={
-                                    location.pathname === "/about"
-                                        ? "font-semibold text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"
-                                        : "text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"
-                                }
-                            >
-                                About
-                            </Link>
-                        </span>
-                        <span className='hover:-translate-y-1 hover:scale-110 duration-500'>
-                            <Link
-                                to='/home-course'
-                                className={
-                                    location.pathname === "/home-course" ||
-                                        location.pathname === "/home-course-detail" ||
-                                        location.pathname === "/home-sub-detail"
-                                        ? "font-semibold text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"
-                                        : "text-[18px] xl:text-[16px]  md:text-[14px] 2xl:text-[20px]"
-                                }
-                            >
-                                {" "}
-                                Courses
-                            </Link>
-                        </span>
-                        <span className='hover:-translate-y-1 hover:scale-110 duration-500'>
-                            <Link
-                                to='/events'
-                                className={
-                                    location.pathname === '/events' || location.pathname === `/events/${ID}`
-                                        ? "font-semibold text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"
-                                        : "text-[18px] xl:text-[16px] md:text-[14px]  2xl:text-[20px] "
-                                }
-                            >
-                                Blogs
-                            </Link>
-                        </span>
 
-
-                        <span
-                            className='hover:-translate-y-1 hover:scale-110 duration-500'
-                        >
-                            <Link
-                                to='/contact'
-                                className={
-                                    location.pathname === "/contact"
-                                        ? "font-semibold text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"
-                                        : "text-[18px] xl:text-[16px] md:text-[14px] 2xl:text-[20px]"
-                                }
-                            >
-                                Contact
-                            </Link>
-
-                        </span>
-                        <span className='hover:-translate-y-1 md:text-[14px] hover:scale-110 duration-500 text-[18px] xl:text-[16px] 2xl:text-[20px] '>
-                            <Link to='/login'>Login</Link>
-                        </span>
+                        <button className='hover:-translate-y-1 md:text-[14px] hover:scale-110 duration-500 text-[18px] xl:text-[16px] 2xl:text-[20px] ' onClick={logout}>
+                            Logout
+                        </button>
                     </div>
                     <div className='flex justify-end  lg:hidden gap-10 pr-5'>
                         <Navbar onMenuOpenChange={setIsMenuOpen}>

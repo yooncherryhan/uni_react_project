@@ -13,11 +13,10 @@ import {
 import Logo from '../../../../assets/images/ellogo.png'
 import { GetDetail, ImageURL } from '../../../../../utils/API/api';
 import Swal from 'sweetalert2';
-import Sidebar from '../Sidebar';
+import IndexPage from './index';
 
 const AdminDashboard = () => {
     const ID = localStorage.getItem('data')
-    console.log(ID, 'da')
     const navigate = useNavigate()
     const [showSidebar, setShowSidebar] = useState(true);
     const [userData, setUserData] = useState([])
@@ -35,12 +34,12 @@ const AdminDashboard = () => {
 
     return (
         <>
-            {ID !== null ? (
+            {ID && ID !== null ? (
                 <div className='flex flex-col'>
 
 
                     <div className=''>
-                        <Sidebar />
+                        <IndexPage />
 
                     </div>
 

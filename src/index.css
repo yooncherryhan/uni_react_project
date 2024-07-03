@@ -596,6 +596,18 @@ select {
   text-transform: none;
 }
 
+.button-warning {
+  background-color: black;
+  border-radius: 8px;
+  color: #fff;
+  padding: 4px;
+}
+.button-delete {
+  background-color: red;
+  border-radius: 8px;
+  color: #fff;
+  padding: 4px;
+}
 /*
   1. Correct the inability to style clickable types in iOS and Safari.
   2. Remove default button styles.
