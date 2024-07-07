@@ -20,12 +20,14 @@ import {
   faRightLeft,
   faXmark,
   faUsers,
+  faBlog
 } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../../../assets/images/ellogo.png";
 
 import Swal from "sweetalert2";
 import UserTable from "../Users/userList";
 import { Get, GetDetail } from "../../../../../utils/API/api";
+import CategoryCreate from "../Category/categoryCreate";
 const Container = ({ text, children }) => {
   const ID = localStorage.getItem("data");
   const [showSidebar, setShowSidebar] = useState(true);
@@ -62,20 +64,18 @@ const Container = ({ text, children }) => {
   return (
     <div>
       <div
-        className={`top-0 left-0 w-[20vw] bg-blue-950 p-5 flex flex-col gap-2  text-white fixed h-screen scroll-smooth overflow-y-scroll z-40  ease-in-out duration-300 ${
-          showSidebar ? " translate-x-0" : " -translate-x-[180px]"
-        }`}
+        className={`top-0 left-0 w-[20vw] bg-blue-950 p-5 flex flex-col gap-3  text-white fixed h-screen scroll-smooth overflow-y-scroll z-40  ease-in-out duration-300 ${showSidebar ? " translate-x-0" : " -translate-x-[180px]"
+          }`}
       >
         {showSidebar ? (
           <>
             <div className=" h-[40px] overflow-auto">
               <button
                 onClick={() => setShowSidebar(!showSidebar)}
-                className={`fixed  z-30 flex items-center cursor-pointer ${
-                  showSidebar
-                    ? "left-[100px] translate-x-[100px]"
-                    : "left-[200px] -translate-x-[100px]"
-                } top-6`}
+                className={`fixed  z-30 flex items-center cursor-pointer ${showSidebar
+                  ? "left-[100px] translate-x-[100px]"
+                  : "left-[200px] -translate-x-[100px]"
+                  } top-6`}
               >
                 <FontAwesomeIcon icon={faXmark} size="xl" />
               </button>
@@ -88,8 +88,9 @@ const Container = ({ text, children }) => {
               <FontAwesomeIcon icon={faUsers} className="w-[40px]" /> &nbsp;
               Users
             </Link>
+            <Divider></Divider>
             <Link
-              to="/category"
+              to="/category-create"
               className="text-[16px] md:text-[18px] font-semibold text-white"
             >
               <FontAwesomeIcon icon={faList} className="w-[40px]" /> &nbsp;
@@ -108,13 +109,13 @@ const Container = ({ text, children }) => {
               to="/subject"
               className="text-[16px] md:text-[18px] font-semibold text-white"
             >
-              <FontAwesomeIcon icon={faBook} className="w-[40px]" /> &nbsp;
+              <FontAwesomeIcon icon={faBlog} className="w-[40px]" /> &nbsp;
               Blogs
             </Link>
             <Divider></Divider>
             <div className="overflow-hidden">
               <button
-                className="absolute bottom-5  bg-white text-[#000] p-1 rounded-lg w-[100px]"
+                className="absolute bottom-5  bg-white text-[#000] p-1 rounded-lg w-[100px] hover:text-red-500"
                 onClick={logout}
               >
                 <FontAwesomeIcon icon={faRightFromBracket} />
@@ -123,7 +124,7 @@ const Container = ({ text, children }) => {
             </div>
           </>
         ) : (
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-8">
             <span
               className="text-[20px] md:text-[25px] text-end font-semibold text-white"
               onClick={() => setShowSidebar(!showSidebar)}
@@ -142,6 +143,13 @@ const Container = ({ text, children }) => {
             <span className="text-[20px] md:text-[25px] text-end font-semibold text-white">
               <FontAwesomeIcon icon={faBook} size="lg" />
             </span>
+            <Link
+              to="/subject"
+              className="text-[20px] md:text-[25px] text-end font-semibold text-white"
+            >
+              <FontAwesomeIcon icon={faBlog} size='lg' />
+
+            </Link>
             <div className="overflow-hidden flex justify-end items-end">
               <span
                 className="absolute bottom-5 text-[20px] md:text-[25px] text-end  p-1 rounded-lg w-[100px]"
@@ -154,11 +162,10 @@ const Container = ({ text, children }) => {
         )}
       </div>
       <div
-        className={`top-0 right-0   flex flex-col   text-white fixed overflow-scroll scroll-smooth  z-40  ease-in-out duration-300 ${
-          showSidebar
-            ? " translate-x-0 w-[80vw]"
-            : "  -translate-x-[12px] w-[92vw]"
-        }`}
+        className={`top-0 right-0   flex flex-col   text-white fixed overflow-scroll scroll-smooth  z-40  ease-in-out duration-300 ${showSidebar
+          ? " translate-x-0 w-[80vw]"
+          : "  -translate-x-[12px] w-[92vw]"
+          }`}
       >
         <div className="h-[100px] text-black flex justify-between items-center mx-2">
           <Image src={Logo} className="w-[150px] h-[70px]" />
@@ -178,6 +185,7 @@ const Container = ({ text, children }) => {
 
         <div className="h-[500px] text-black p-2">
           {useLocation().pathname === "/users" && <UserTable />}
+          {useLocation().pathname === "/category-create" && <CategoryCreate />}
         </div>
       </div>
     </div>

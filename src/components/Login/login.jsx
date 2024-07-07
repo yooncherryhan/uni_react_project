@@ -50,7 +50,7 @@ const Login = () => {
                         timer: 2000,
                     });
                     localStorage.setItem('data', res.data.data.id)
-                    navigate('/admin')
+                    navigate('/users')
                 }
 
             })
