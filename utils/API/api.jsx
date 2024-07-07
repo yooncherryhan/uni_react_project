@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 const token = localStorage.getItem("token");
 
@@ -21,19 +22,21 @@ export const Get = async (url) => {
 };
 
 //post
-export const Post = async (url, data, conf) => {
+export const Post = async (url, data, conf, text) => {
     await api
         .post(url, data, conf)
         .then(function (res) {
+
             Swal.fire({
                 title: "Successful!",
-                text: "You Created Treatment!",
+                text: `You Created ${text}!`,
                 icon: "success",
                 // showCancelButton: true,
 
                 showConfirmButton: false,
                 timer: 2000,
             });
+
             return res.data.data
 
         })
@@ -76,13 +79,13 @@ export const Delete = async (url, id) => {
 };
 
 //update
-export const Update = async (url, id, data, conf) => {
+export const Update = async (url, id, data, conf, text) => {
     await api
         .put(url + id, data, conf)
         .then(function (res) {
             Swal.fire({
                 title: "Successful!",
-                text: "You Created Treatment!",
+                text: `You Updated ${text}!`,
                 icon: "success",
                 // showCancelButton: true,
 

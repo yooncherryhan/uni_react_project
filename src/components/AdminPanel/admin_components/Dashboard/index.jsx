@@ -28,6 +28,9 @@ import Swal from "sweetalert2";
 import UserTable from "../Users/userList";
 import { Get, GetDetail } from "../../../../../utils/API/api";
 import CategoryCreate from "../Category/categoryCreate";
+import CategoryList from "../Category/categoryList";
+import CategoryUpdate from "../Category/categoryUpdate";
+import SubjectCreate from "../Subject/subjectCreate";
 const Container = ({ text, children }) => {
   const ID = localStorage.getItem("data");
   const [showSidebar, setShowSidebar] = useState(true);
@@ -90,7 +93,7 @@ const Container = ({ text, children }) => {
             </Link>
             <Divider></Divider>
             <Link
-              to="/category-create"
+              to="/category"
               className="text-[16px] md:text-[18px] font-semibold text-white"
             >
               <FontAwesomeIcon icon={faList} className="w-[40px]" /> &nbsp;
@@ -186,6 +189,9 @@ const Container = ({ text, children }) => {
         <div className="h-[500px] text-black p-2">
           {useLocation().pathname === "/users" && <UserTable />}
           {useLocation().pathname === "/category-create" && <CategoryCreate />}
+          {useLocation().pathname.split('/')[1] === "category-update" && <CategoryUpdate />}
+          {useLocation().pathname === "/category" && <CategoryList />}
+          {useLocation().pathname === "/subject" && <SubjectCreate />}
         </div>
       </div>
     </div>

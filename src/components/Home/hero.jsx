@@ -7,17 +7,17 @@ import Hero from "../../assets/images/e-lea.gif";
 const HeroSection = () => {
   return (
     <div>
-      <section className="gj do ir hj sp jr i pg">
+      <section className="gj do ir hj sp jr i pg ">
         {/* <!-- Hero Images --> */}
-        <div className="xc fn zd/2 2xl:ud-w-187.5 bd 2xl:ud-h-171.5 h q r">
-          <img
+        <div className="xc fn zd/2 2xl:ud-w-187.5 bd 2xl:ud-h-171.5 h q r ">
+          {/* <img
             src={shape1}
             alt="shape1"
             className="xc 2xl:ud-block h t -ud-left-[10%] ua"
-          />
+          /> */}
           <img src={shape2} alt="shape2" className="xc 2xl:ud-block h u p va" />
           <img src={shape3} alt="shape3" className="xc 2xl:ud-block h v w va" />
-          <img src={Hero} alt="shape4" className="h q r pt-[100px] mt-10" />
+          <img src={Hero} alt="shape4" className="h q r sm:pt-[100px] 2xl:pt-[150px] mt-10" />
 
         </div>
 
