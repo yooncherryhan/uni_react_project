@@ -24,7 +24,7 @@ export function Small() {
                 <img src={icon2} alt="Icon" />
               </div>
               <div>
-                <h4 className="ek yj go kk wm xb">Take Ownership</h4>
+                <h4 className="ek yj go kk wm xb">Take Lessons</h4>
                 <p>Lorem ipsum dolor sit amet conse adipiscing elit.</p>
               </div>
             </div>

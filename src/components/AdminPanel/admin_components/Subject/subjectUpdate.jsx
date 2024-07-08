@@ -1,31 +1,30 @@
 import { Button, Input, RadioGroup, Radio, Textarea } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { faPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SelectItem, Select } from "@nextui-org/select";
-import { Get, Post } from "../../../../../utils/API/api";
+import { Get, GetDetail, Post, Update } from "../../../../../utils/API/api";
 import { CancelButton } from "../../../../constants/cancelButton";
 import { CreateTypeButton } from "../../../../constants/createTypeButton";
-export default function SubjectCreate() {
+export default function SubjectUpdate() {
+    const location = useLocation()
+    const ID = location.pathname.split('/')[2]
     const variant = "bordered";
     const [categoryList, setCategoryList] = useState([]);
     const [image, setImage] = useState("");
+    const [oldImage, setOldImage] = useState('')
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
 
     const [desc, setDesc] = useState('')
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
-    const [instructors, setInstructors] = useState('');
-    // const [data, setData] = useState([]);
-    // const dataArr = [...data, instructors?.split(',')]
-    // console.log(JSON.stringify({ data: instructors?.split(',') }), 'inst')
-    const [videoLinks, setVideoLinks] = useState("");
     const [newVideoLink, setNewVideoLink] = useState([]);
-
+    const [categoryID, setCategoryID] = useState('')
+    const [videoLinks, setVideoLinks] = useState("");
     const [price, setPrice] = useState('');
     const [duration, setDuration] = useState('')
 
@@ -38,9 +37,9 @@ export default function SubjectCreate() {
     const handleImage = (e) => {
         if (e.target.files) {
             setImage(e.target.files[0]);
+            console.log(e.target.files[0], 'img')
         }
     };
-
     const AddVideo = (val) => {
         console.log(val, "val");
         const newData = {
@@ -49,25 +48,24 @@ export default function SubjectCreate() {
         setNewVideoLink([...newVideoLink, newData]);
         console.log([...newVideoLink, newData], "res");
     };
-
     const DeleteVideo = async (val) => {
-        console.log(val, "val");
+        // console.log(val, "val");
         setNewVideoLink(newVideoLink.filter((el) => el.links !== val));
     };
-    const create = async () => {
+    const update = async () => {
         const formData = new FormData();
-
+        formData.append("id", ID);
         formData.append("title", title);
-        formData.append("category", category);
+        formData.append("category", categoryID ? categoryID : category);
         formData.append("description", desc);
-        formData.append("image", image);
+        formData.append("image", image ? image : oldImage);
         formData.append("startDate", fromDate);
         formData.append("endDate", toDate);
         formData.append("price", price);
         formData.append("duration", duration);
         formData.append("videoLink", JSON.stringify(newVideoLink));
 
-        await Post('subject', formData, {
+        await Update('subjects/', ID, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -77,17 +75,33 @@ export default function SubjectCreate() {
 
     useEffect(() => {
 
+        const getSubDetail = async () => {
+            const subDetail = await GetDetail('subjects/', ID)
+            console.log(subDetail.data, 'sub detail')
+            setTitle(subDetail.data.title)
+            setPrice(subDetail.data?.price)
+            setDuration(subDetail.data?.duration)
+            setCategory(subDetail.data.category?.title)
+            setCategoryID(subDetail.data.category?._id)
+            setFromDate(subDetail.data?.startDate)
+            setToDate(subDetail.data?.endDate)
+            setOldImage(subDetail.data?.image)
+            setDesc(subDetail.data?.description)
+            setNewVideoLink(JSON.parse(subDetail.data?.videoLink))
+
+        }
         const getSubjectList = async () => {
             const list = await Get('categories')
             setCategoryList(list.data)
 
         };
+        getSubDetail()
         getSubjectList();
     }, []);
 
     return (
         <div className='gap-4'>
-            <form onSubmit={handleSubmit(create)}>
+            <form onSubmit={handleSubmit(update)}>
                 <div className='flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1'>
                     <div className='block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2'>
                         <label className='text-sm font-semibold'>Subject Name</label>
@@ -96,6 +110,7 @@ export default function SubjectCreate() {
 
                             placeholder=''
                             variant={variant}
+                            value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             labelPlacement='outside'
                         />
@@ -105,6 +120,7 @@ export default function SubjectCreate() {
                         <Input
                             type='text'
                             variant={variant}
+                            value={duration}
                             placeholder="eg: 1,2,3 month or week"
                             onChange={(e) => setDuration(e.target.value)}
 
@@ -116,21 +132,16 @@ export default function SubjectCreate() {
                 <div className='flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1'>
                     <div className='block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2'>
                         <label
-                            className={`text-sm font-semibold ${errors.subject && errors.subject.type === "required"
-                                ? "text-[#f31260]"
-                                : ""
-                                }`}
+                            className={`text-sm font-semibold`}
                         >
                             Category
                         </label>
                         <select
-                            {...register("category", {
-                                required: true,
-                                onChange: (e) => setCategory(e.target.value),
-                            })}
+
+                            onChange={(e) => setCategory(e.target.value)}
                             className='bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-xl m-0 px-0 py-2 focus:ring-gray-500 focus:border-gray-500 block w-full p-3 dark:bg-default-100 dark:border-gray-600 dark:placeholder-gray-100 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500'
                         >
-                            <option hidden>Choose Category</option>
+                            <option value={categoryID} hidden>{category}</option>
                             {categoryList.map((item) => (
                                 <option key={item._id} value={item._id}>
                                     {item.title}
@@ -144,6 +155,7 @@ export default function SubjectCreate() {
                         <Input
                             type='number'
                             variant={variant}
+                            value={price}
                             onChange={(e) => setPrice(e.target.value)}
 
                         />
@@ -165,6 +177,7 @@ export default function SubjectCreate() {
                             onChange={handleImage}
                             className='border-1 border-slate-300 rounded-md h-10'
                         />
+                        <img src={oldImage?.originalname ? 'http://localhost:5000/upload/' + oldImage?.originalname : 'http://localhost:5000/upload/' + image?.name} className=' w-[120px] h-[60px] rounded-lg border-1 border-slate-400' />
                     </div>
 
                     <div className='block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4'>
@@ -184,7 +197,7 @@ export default function SubjectCreate() {
                                 </Button>
                             }
                         />
-                        {newVideoLink.map((i) => (
+                        {newVideoLink && newVideoLink.map((i) => (
                             <div key={i} className='mt-3'>
                                 <Input
                                     type='text'
@@ -206,11 +219,12 @@ export default function SubjectCreate() {
                     </div>
 
                 </div>
-                <div className='grid grid-cols-2 mb-6 md:mb-0 gap-4 mt-1'>
+                <div className='grid grid-cols-2 mb-6 md:mb-0 gap-4 mt-3'>
                     <Input
                         type='date'
                         label='Start Date'
                         placeholder='Date'
+                        value={fromDate}
                         variant={variant}
                         labelPlacement='outside'
                         onChange={(e) => setFromDate(e.target.value)}
@@ -219,6 +233,7 @@ export default function SubjectCreate() {
                         type='date'
                         label='End Date'
                         placeholder='Date'
+                        value={toDate}
                         variant={variant}
                         onChange={(e) => setToDate(e.target.value)}
                         labelPlacement='outside'
@@ -227,21 +242,17 @@ export default function SubjectCreate() {
                 </div>
                 <div className=' w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2'>
                     <label
-                        className={`text-sm font-semibold ${errors.description && errors.description.type === "required"
-                            ? "text-[#f31260]"
-                            : ""
-                            }`}
+                        className={`text-sm font-semibold`}
                     >
                         About Subject
                     </label>
                     <Textarea
                         type='text'
                         placeholder='About this subject'
+                        value={desc}
                         variant={variant}
-                        {...register("description", {
-                            required: true,
-                            onChange: (e) => setDesc(e.target.value),
-                        })}
+
+                        onChange={(e) => setDesc(e.target.value)}
                     />
                 </div>
 

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Logo from '../../../assets/images/ellogo.png'
 import {
@@ -9,16 +9,20 @@ import {
     NavbarItem,
     Image,
     NavbarMenuToggle,
+    Avatar,
 
 } from "@nextui-org/react";
-
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, User } from "@nextui-org/react";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { GetDetail } from "../../../../utils/API/api";
+import CardList from "./cardList";
 
 export default function StudentNav() {
     const location = useLocation()
-    const ID = location.pathname.split('/')[2]
+    const ID = localStorage.getItem("data");
+    const [userData, setUserData] = useState([]);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -35,6 +39,16 @@ export default function StudentNav() {
         });
         navigate("/");
     };
+    useEffect(() => {
+        const getUser = async () => {
+            const result = await GetDetail("users/", ID);
+            setUserData(result.data);
+            console.log(result.data, "reswa");
+        };
+
+
+        getUser();
+    }, []);
     return (
         <>
             <div className='fixed bg-white z-50  md:shadow-md lg:shadow-lg w-full  md:p-5 lg:p-6 2xl:p-10 '>
@@ -55,7 +69,7 @@ export default function StudentNav() {
                             color: "#224362",
                         }}
                     >
-                        <span className='hover:-translate-y-1 hover:scale-105 duration-500'>
+                        {/* <span className='hover:-translate-y-1 hover:scale-105 duration-500'>
                             <Link
                                 to='/'
                                 className={
@@ -66,11 +80,45 @@ export default function StudentNav() {
                             >
                                 Home
                             </Link>
-                        </span>
+                        </span> */}
+                        <div className="flex items-center gap-4">
 
-                        <button className='hover:-translate-y-1 md:text-[14px] hover:scale-110 duration-500 text-[18px] xl:text-[16px] 2xl:text-[20px] ' onClick={logout}>
-                            Logout
-                        </button>
+                            <Dropdown placement="bottom-start">
+                                <DropdownTrigger>
+                                    <User
+                                        as="button"
+                                        avatarProps={{
+                                            isBordered: true,
+                                            src: `http://localhost:5000/upload/${userData?.image?.originalname ? userData?.image?.originalname : ''}`
+                                            ,
+                                        }}
+                                        className="transition-transform"
+                                        description={userData?.email}
+                                        name={userData?.name}
+                                    />
+                                </DropdownTrigger>
+                                <DropdownMenu aria-label="User Actions" variant="flat">
+                                    <DropdownItem key="profile" className="h-14 gap-2">
+                                        <p className="font-bold">Signed in as</p>
+                                        <p className="font-bold lowercase">@{userData.name}</p>
+                                    </DropdownItem>
+                                    <DropdownItem key="settings">
+                                        My Settings
+                                    </DropdownItem>
+                                    <DropdownItem key="team_settings">Team Settings</DropdownItem>
+
+                                    <DropdownItem key="help_and_feedback">
+                                        Help & Feedback
+                                    </DropdownItem>
+                                    <DropdownItem key="logout" color="danger">
+                                        <button className='hover:-translate-y-1 md:text-[14px] hover:scale-110 duration-500 text-[18px] xl:text-[16px] 2xl:text-[20px] ' onClick={logout}>
+                                            Logout
+                                        </button>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        </div>
+
                     </div>
                     <div className='flex justify-end  lg:hidden gap-10 pr-5'>
                         <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -193,6 +241,7 @@ export default function StudentNav() {
 
                     </div>
                 </div>
+
             </div>
         </>
     );

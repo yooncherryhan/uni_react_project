@@ -10,6 +10,8 @@ import CategoryUpdate from './components/AdminPanel/admin_components/Dashboard/i
 import SubjectCreate from './components/AdminPanel/admin_components/Dashboard/index.jsx'
 import SubjectList from './components/AdminPanel/admin_components/Dashboard/index.jsx'
 import SubjectUpdate from './components/AdminPanel/admin_components/Dashboard/index.jsx'
+import SubjectDetail from './components/StudentPanel/pages/index.jsx'
+import AllSubjectList from './components/Home/allSubjects.jsx'
 import "./index.css";
 
 const App = () => {
@@ -35,6 +37,9 @@ const App = () => {
           <Route path="/subject" element={<SubjectList />}></Route>
           <Route path="/subject-create" element={<SubjectCreate />}></Route>
           <Route path="/subject-update/:id" element={<SubjectUpdate />}></Route>
+          <Route path="/subject-detail/:id" element={<SubjectDetail />}></Route>
+
+          <Route path="/all-subjects" element={<AllSubjectList />}></Route>
         </Routes>
       </Router>
     </>

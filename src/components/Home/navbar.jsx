@@ -65,22 +65,21 @@ export default function NavBar() {
                         </span>
                         <span className='hover:-translate-y-1 hover:scale-110 duration-500'>
                             <Link
-                                to='/home-course'
+                                to='/all-subjects'
                                 className={
-                                    location.pathname === "/home-course" ||
-                                        location.pathname === "/home-course-detail" ||
-                                        location.pathname === "/home-sub-detail"
+                                    location.pathname === "/all-subjects"
+
                                         ? "font-semibold text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"
                                         : "text-[18px] xl:text-[16px]  md:text-[14px] 2xl:text-[20px]"
                                 }
                             >
                                 {" "}
-                                Courses
+                                Subjects
                             </Link>
                         </span>
                         <span className='hover:-translate-y-1 hover:scale-110 duration-500'>
                             <Link
-                                to='/events'
+                                to='/all-subjects'
                                 className={
                                     location.pathname === '/events' || location.pathname === `/events/${ID}`
                                         ? "font-semibold text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"

@@ -21,12 +21,15 @@ import React, { useEffect, useState } from "react";
 import api, { Delete, Get, GetDetail, ImageURL } from "../../../../../utils/API/api";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-export default function UserTable() {
+import { AddButton } from "../../../../constants/addButton";
+import { UpdateButton } from "../../../../constants/updateButton";
+import { DeleteButton } from "../../../../constants/deleteButton";
+export default function SubjectTable() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const ID = localStorage.getItem("data");
     // console.log(ID, "da");
     const [userData, setUserData] = useState([]);
-    const [allUserList, setAllUserList] = useState([]);
+    const [allSubjectList, setAllSubjectList] = useState([]);
     const [delID, setDelID] = useState(null);
     const [page, setPage] = React.useState(1);
     const [pages, setPages] = React.useState(1);
@@ -35,8 +38,8 @@ export default function UserTable() {
     const items = React.useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
-        return allUserList.slice(start, end);
-    }, [page, allUserList]);
+        return allSubjectList.slice(start, end);
+    }, [page, allSubjectList]);
 
     // const handleKeyDown = (event) => {
     //     if (event.key === "Enter" && isOpen) {
@@ -47,7 +50,7 @@ export default function UserTable() {
     const onRowsChange = (event) => {
         const newRowsPerPage = parseInt(event.target.value);
         setRowsPerPage(newRowsPerPage);
-        setPages(Math.ceil(allUserList.length / newRowsPerPage));
+        setPages(Math.ceil(allSubjectList.length / newRowsPerPage));
         setPage(1); // Reset the current page to 1 when rows per page changes
     };
 
@@ -55,14 +58,15 @@ export default function UserTable() {
         const getUser = async () => {
             const result = await GetDetail("users/", ID);
             setUserData(result.data);
-            // console.log(result.data, "reswa");
+            console.log(result.data, "reswa");
         };
 
-        const getAllUser = async () => {
-            const all = await Get("users");
-            setAllUserList(all.data);
+        const getAllSubject = async () => {
+            const all = await Get("subjects");
+            console.log(all.data, 'res')
+            setAllSubjectList(all.data);
         };
-        getAllUser();
+        getAllSubject();
         getUser();
         // document.addEventListener("keydown", handleKeyDown);
 
@@ -83,8 +87,8 @@ export default function UserTable() {
     };
 
     const handleDelete = async () => {
-        await api.delete("users/" + delID).then(() => {
-            setAllUserList(allUserList.filter((item) => item._id !== delID));
+        await api.delete("subjects/" + delID).then(() => {
+            setAllSubjectList(allSubjectList.filter((item) => item._id !== delID));
             onClose();
         });
 
@@ -93,10 +97,13 @@ export default function UserTable() {
 
     return (
         <>
-
+            <div className='flex justify-between py-2'>
+                <span>Subject List</span>
+                <AddButton add={`/subject-create`} />
+            </div>
             <div className='flex justify-between items-center mb-3'>
                 <span className='text-default-400 text-small'>
-                    Total {allUserList.length} Users
+                    Total {allSubjectList.length} Subjects
                 </span>
                 <label className='flex items-center text-default-400 text-small'>
                     Rows per page:
@@ -131,25 +138,32 @@ export default function UserTable() {
                 }>
                 <TableHeader>
                     <TableColumn>Code</TableColumn>
-                    <TableColumn>Name</TableColumn>
-                    <TableColumn>Email</TableColumn>
-                    <TableColumn>Phone</TableColumn>
-                    <TableColumn>Role</TableColumn>
+                    <TableColumn>Start Date</TableColumn>
+                    <TableColumn>Category</TableColumn>
+                    <TableColumn>Title</TableColumn>
+                    <TableColumn>Price</TableColumn>
+                    <TableColumn>Duration</TableColumn>
                     <TableColumn>Image</TableColumn>
+                    <TableColumn>Description</TableColumn>
+
                     <TableColumn>Action</TableColumn>
                 </TableHeader>
                 <TableBody emptyContent={"No Positions to display."}>
                     {items.map((item, index) => (
                         <TableRow key={index}>
                             <TableCell>{index + 1}</TableCell>
-                            <TableCell>{item?.name}</TableCell>
-                            <TableCell>{item?.email}</TableCell>
-                            <TableCell>{item?.phone}</TableCell>
-                            <TableCell>{item?.role}</TableCell>
+                            <TableCell>{item?.startDate}</TableCell>
+                            <TableCell>{item.category?.title}</TableCell>
+                            <TableCell>{item?.title}</TableCell>
+                            <TableCell>{item?.price}</TableCell>
+                            <TableCell>{item?.duration}</TableCell>
                             <TableCell><img src={'http://localhost:5000/upload/' + item?.image?.originalname} className=' w-[40px] h-[40px] rounded-lg' /></TableCell>
-                            <TableCell className='flex gap-2'>
-                                {/* <button className='button-warning'>Update</button> */}
-                                <button className='text-red-600' onClick={() => handleOpen(item._id)}><FontAwesomeIcon icon={faTrash} size='xl' /></button>
+                            <TableCell>{item?.description.substring(0, 20)}...</TableCell>
+
+                            <TableCell className='flex'>
+                                <UpdateButton update={`/subject-update/${item._id}`} />
+                                <DeleteButton Trash={() => handleOpen(item._id)} />
+                                {/* <button className='text-red-600' onClick={}><FontAwesomeIcon icon={faTrash} size='xl' /></button> */}
                             </TableCell>
                         </TableRow>
                     ))}

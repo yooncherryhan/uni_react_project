@@ -4,9 +4,13 @@ import { TEInput, TERipple } from "tw-elements-react";
 import api, { Post } from "../../../utils/API/api";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const Login = () => {
     const navigate = useNavigate()
+    const [isVisible, setIsVisible] = React.useState(false);
+
+    const toggleVisibility = () => setIsVisible(!isVisible);
     const [email, setEmail] = useState('')
     const [myName, setMyName] = useState('')
     const [phone, setPhone] = useState('')
@@ -24,7 +28,7 @@ const Login = () => {
             .post('auth/login', info, { headers: { 'Content-Type': 'application/json' } })
             .then(function (res) {
 
-                console.log(res.data.data, 'res')
+                // console.log(res.data.data, 'res')
 
                 if (res.data.data.user.role === 'student') {
                     Swal.fire({
@@ -173,8 +177,21 @@ const Login = () => {
                                                 <Input
                                                     variant={variant}
                                                     className='bg-white'
-                                                    type="password"
+                                                    type={isVisible ? "text" : "password"}
                                                     placeholder="Password"
+                                                    endContent={
+                                                        <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+                                                            {isVisible ? (
+                                                                <FontAwesomeIcon icon={faEye} className="text-lg text-default-400 pointer-events-none" />
+
+
+                                                            ) : (
+                                                                <FontAwesomeIcon icon={faEyeSlash} className="text-lg text-default-400 pointer-events-none" />
+
+                                                            )}
+                                                        </button>
+                                                    }
+
                                                     onChange={(e) => setPassword(e.target.value)}
                                                 />
 

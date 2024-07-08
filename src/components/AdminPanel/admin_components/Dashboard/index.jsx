@@ -31,6 +31,8 @@ import CategoryCreate from "../Category/categoryCreate";
 import CategoryList from "../Category/categoryList";
 import CategoryUpdate from "../Category/categoryUpdate";
 import SubjectCreate from "../Subject/subjectCreate";
+import SubjectTable from "../Subject/subjectList";
+import SubjectUpdate from "../Subject/subjectUpdate";
 const Container = ({ text, children }) => {
   const ID = localStorage.getItem("data");
   const [showSidebar, setShowSidebar] = useState(true);
@@ -191,7 +193,9 @@ const Container = ({ text, children }) => {
           {useLocation().pathname === "/category-create" && <CategoryCreate />}
           {useLocation().pathname.split('/')[1] === "category-update" && <CategoryUpdate />}
           {useLocation().pathname === "/category" && <CategoryList />}
-          {useLocation().pathname === "/subject" && <SubjectCreate />}
+          {useLocation().pathname === "/subject" && <SubjectTable />}
+          {useLocation().pathname === "/subject-create" && <SubjectCreate />}
+          {useLocation().pathname.split('/')[1] === "subject-update" && <SubjectUpdate />}
         </div>
       </div>
     </div>

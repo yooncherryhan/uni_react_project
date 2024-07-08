@@ -12,22 +12,16 @@ const Footer = () => {
       </div>
 
       <div className="font-jakarta absolute bottom-2 left-1/2 -translate-x-1/2 font-inter text-dark-purple text-center text-xs text-n-1">
-        Challenge by{" "}
+        © 2024 &nbsp; E-Learning Web App.
         <a
           className="text-color-1"
           href="https://www.frontendmentor.io?ref=challenge"
           target="_blank"
         >
-          Frontend Mentor
+          Built using React & Node JS.
+
         </a>
-        . Coded by{" "}
-        <a
-          className="text-color-1"
-          href="https://github.com/IsaiasVillegas"
-          target="_blank"
-        >
-          Isaias Villegas
-        </a>
+
         .
       </div>
     </footer>
