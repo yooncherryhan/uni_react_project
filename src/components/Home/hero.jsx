@@ -35,7 +35,7 @@ const HeroSection = () => {
               </p>
 
               <div className="tc tf yo zf mb">
-                <a href="#" className="ek jk lk gh gi hi rg ml il vc _d _l">
+                <a href="/login" className="ek jk lk gh gi hi rg ml il vc _d _l">
                   Get Started Now
                 </a>
 

@@ -12,6 +12,8 @@ import SubjectList from './components/AdminPanel/admin_components/Dashboard/inde
 import SubjectUpdate from './components/AdminPanel/admin_components/Dashboard/index.jsx'
 import SubjectDetail from './components/StudentPanel/pages/index.jsx'
 import AllSubjectList from './components/Home/allSubjects.jsx'
+import AboutUs from "./components/Home/AboutUS/aboutus.jsx";
+import Contact from "./components/Home/Contact/contact.jsx";
 import "./index.css";
 
 const App = () => {
@@ -40,6 +42,8 @@ const App = () => {
           <Route path="/subject-detail/:id" element={<SubjectDetail />}></Route>
 
           <Route path="/all-subjects" element={<AllSubjectList />}></Route>
+          <Route path="/about-us" element={<AboutUs />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
         </Routes>
       </Router>
     </>

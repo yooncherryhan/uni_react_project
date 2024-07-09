@@ -53,9 +53,9 @@ export default function NavBar() {
                         </span>
                         <span className='hover:-translate-y-1 hover:scale-110 duration-500'>
                             <Link
-                                to='/about'
+                                to='/about-us'
                                 className={
-                                    location.pathname === "/about"
+                                    location.pathname === "/about-us"
                                         ? "font-semibold text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"
                                         : "text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"
                                 }
@@ -107,7 +107,7 @@ export default function NavBar() {
 
                         </span>
                         <span className='hover:-translate-y-1 md:text-[14px] hover:scale-110 duration-500 text-[18px] xl:text-[16px] 2xl:text-[20px] '>
-                            <Link to='/login'>Login</Link>
+                            <Link to='/login' className='p-2 border-1 border-slate-400 rounded-md '>Sign in</Link>
                         </span>
                     </div>
                     <div className='flex justify-end  lg:hidden gap-10 pr-5'>
