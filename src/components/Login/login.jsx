@@ -86,8 +86,8 @@ const Login = () => {
         setShowRegForm(false)
     }
     return (
-        <section className="h-screen bg-neutral-200 dark:bg-neutral-700">
-            <div className="container h-screen">
+        <section className="h-screen py-5 bg-neutral-200 dark:bg-neutral-700">
+            <div className="container ">
                 <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
                     <div className="w-full">
                         <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
@@ -96,7 +96,7 @@ const Login = () => {
                                 <div className="px-4 md:px-0 lg:w-6/12">
                                     <div className="md:mx-6 md:p-12">
                                         {/* <!--Logo--> */}
-                                        <div className="text-center">
+                                        <div className="text-center py-5">
                                             {/* <img
                                                 className="mx-auto w-48"
                                                 src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
@@ -239,7 +239,7 @@ const Login = () => {
 
                                 {/* <!-- Right column container with background and description--> */}
                                 <div
-                                    className="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
+                                    className="hidden sm:flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
                                     style={{
                                         background:
                                             "linear-gradient(to right, #a8c0ff, #3f2b96)",

@@ -33,6 +33,9 @@ import CategoryUpdate from "../Category/categoryUpdate";
 import SubjectCreate from "../Subject/subjectCreate";
 import SubjectTable from "../Subject/subjectList";
 import SubjectUpdate from "../Subject/subjectUpdate";
+import BlogCreate from "../Blog/blogCreate";
+import BlogTable from "../Blog/blogList";
+import BlogUpdate from "../Blog/blogUpdate";
 const Container = ({ text, children }) => {
   const ID = localStorage.getItem("data");
   const [showSidebar, setShowSidebar] = useState(true);
@@ -111,7 +114,7 @@ const Container = ({ text, children }) => {
             </Link>
             <Divider></Divider>
             <Link
-              to="/subject"
+              to="/blog"
               className="text-[16px] md:text-[18px] font-semibold text-white"
             >
               <FontAwesomeIcon icon={faBlog} className="w-[40px]" /> &nbsp;
@@ -196,6 +199,9 @@ const Container = ({ text, children }) => {
           {useLocation().pathname === "/subject" && <SubjectTable />}
           {useLocation().pathname === "/subject-create" && <SubjectCreate />}
           {useLocation().pathname.split('/')[1] === "subject-update" && <SubjectUpdate />}
+          {useLocation().pathname === "/blog-create" && <BlogCreate />}
+          {useLocation().pathname === "/blog" && <BlogTable />}
+          {useLocation().pathname.split('/')[1] === "blog-update" && <BlogUpdate />}
         </div>
       </div>
     </div>

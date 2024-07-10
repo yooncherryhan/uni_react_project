@@ -15,7 +15,7 @@ const SubjectDetail = () => {
             const list = await GetDetail('subjects/', ID)
             setSubjectList(list.data)
             setShowVideoList(JSON.parse(list.data.videoLink));
-            console.log(list.data, 'sub')
+            // console.log(list.data, 'sub')
         }
         getSubjects()
     }, [])
@@ -61,7 +61,7 @@ const SubjectDetail = () => {
                 )}
                 <span className='text-[20px] font-semibold text-[#000]'>{subjectList?.title}</span>
             </div>
-            <div className='shadow-lg h-auto rounded-xl p-5 flex flex-col gap-2 '>
+            <div className='shadow-lg w-full h-auto rounded-xl p-5 flex flex-col gap-2 '>
                 {showVideoList[0] && (
                     showVideoList.map((video) => (
                         <div onClick={() => handleClickID(video)} key={video} className='flex gap-2 justify-start items-center w-[300px] p-1 rounded-md border-1 border-slate-400'>

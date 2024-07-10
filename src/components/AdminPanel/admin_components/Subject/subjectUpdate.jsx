@@ -177,7 +177,7 @@ export default function SubjectUpdate() {
                             onChange={handleImage}
                             className='border-1 border-slate-300 rounded-md h-10'
                         />
-                        {console.log('http://localhost:5000/upload/' + image?.name, 'immm')}
+                        {/* {console.log('http://localhost:5000/upload/' + image?.name, 'immm')} */}
                         <img src={!image.name ? 'http://localhost:5000/upload/' + oldImage.originalname : 'http://localhost:5000/upload/' + image?.name} className=' w-[120px] h-[60px] rounded-lg border-1 border-slate-400' />
                     </div>
 

@@ -10,10 +10,16 @@ import CategoryUpdate from './components/AdminPanel/admin_components/Dashboard/i
 import SubjectCreate from './components/AdminPanel/admin_components/Dashboard/index.jsx'
 import SubjectList from './components/AdminPanel/admin_components/Dashboard/index.jsx'
 import SubjectUpdate from './components/AdminPanel/admin_components/Dashboard/index.jsx'
+import Blog from './components/AdminPanel/admin_components/Dashboard/index.jsx'
+import BlogCreate from './components/AdminPanel/admin_components/Dashboard/index.jsx'
+import BlogUpdate from './components/AdminPanel/admin_components/Dashboard/index.jsx'
+import AllBlog from './components/Home/Blogs/blogsPage.jsx'
+import BlogDetail from "./components/Home/Blogs/blogDetail.jsx";
 import SubjectDetail from './components/StudentPanel/pages/index.jsx'
 import AllSubjectList from './components/Home/allSubjects.jsx'
 import AboutUs from "./components/Home/AboutUS/aboutus.jsx";
 import Contact from "./components/Home/Contact/contact.jsx";
+
 import "./index.css";
 
 const App = () => {
@@ -42,8 +48,15 @@ const App = () => {
           <Route path="/subject-detail/:id" element={<SubjectDetail />}></Route>
 
           <Route path="/all-subjects" element={<AllSubjectList />}></Route>
+          <Route path="/all-blogs" element={<AllBlog />}></Route>
           <Route path="/about-us" element={<AboutUs />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
+
+          {/* Admin Panel Blog */}
+          <Route path="/blog" element={<Blog />}></Route>
+          <Route path="/blog-create" element={<BlogCreate />}></Route>
+          <Route path="/blog-update/:id" element={<BlogUpdate />}></Route>
+          <Route path="/blog-detail/:id" element={<BlogDetail />}></Route>
         </Routes>
       </Router>
     </>

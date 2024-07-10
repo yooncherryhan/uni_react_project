@@ -79,9 +79,9 @@ export default function NavBar() {
                         </span>
                         <span className='hover:-translate-y-1 hover:scale-110 duration-500'>
                             <Link
-                                to='/all-subjects'
+                                to='/all-blogs'
                                 className={
-                                    location.pathname === '/events' || location.pathname === `/events/${ID}`
+                                    location.pathname === '/all--blogs' || location.pathname === `/events/${ID}`
                                         ? "font-semibold text-[18px] md:text-[14px] xl:text-[16px] 2xl:text-[20px]"
                                         : "text-[18px] xl:text-[16px] md:text-[14px]  2xl:text-[20px] "
                                 }
@@ -134,84 +134,43 @@ export default function NavBar() {
                                 </NavbarItem>
                                 <NavbarItem>
                                     <Link
-                                        to='/home-course'
+                                        to='/about-us'
                                         className={
-                                            location.pathname === "/home-course" ||
-                                                location.pathname === "/home-course-detail" ||
-                                                location.pathname === "/home-sub-detail"
+                                            location.pathname === "/about-us"
                                                 ? "font-semibold text-lg"
                                                 : "text-lg"
                                         }
                                     >
                                         {" "}
-                                        Courses
-                                    </Link>
-                                </NavbarItem>
-                                <NavbarItem>
-                                    <Link
-                                        to='/events'
-                                        className={
-                                            location.pathname === '/events' || location.pathname === `/events/${ID}`
-                                                ? "font-semibold text-lg"
-                                                : "text-lg"
-                                        }
-                                    >
-                                        Events
-                                    </Link>
-                                </NavbarItem>
-                                <NavbarItem>
-                                    <Link
-                                        to='/news-activities'
-                                        className={
-                                            location.pathname === '/news-activities' || location.pathname === `/news-activities/${ID}`
-                                                ? "font-semibold text-lg"
-                                                : "text-lg"
-                                        }
-                                    >
-                                        News & Activities
-                                    </Link>
-                                </NavbarItem>
-
-                                <NavbarItem>
-                                    <Link
-                                        to='/testimonial-page'
-                                        className={
-                                            location.pathname === "/testimonial-page"
-                                                ? "font-semibold text-lg"
-                                                : "text-lg"
-                                        }
-                                    >
-                                        Testimonials
-                                    </Link>
-                                </NavbarItem>
-                                <NavbarItem>
-                                    <Link
-                                        to='/booking'
-                                        className={
-                                            location.pathname === "/booking"
-                                                ? "font-semibold text-lg"
-                                                : "text-lg"
-                                        }
-                                    >
-                                        Booking
-                                    </Link>
-                                </NavbarItem>
-                                <NavbarItem>
-                                    <Link
-                                        to='/about'
-                                        className={
-                                            location.pathname === "/about"
-                                                ? "font-semibold text-lg"
-                                                : "text-lg"
-                                        }
-                                    >
                                         About Us
                                     </Link>
                                 </NavbarItem>
+                                <NavbarItem>
+                                    <Link
+                                        to='/all-subjects'
+                                        className={
+                                            location.pathname === '/all-subjects'
+                                                ? "font-semibold text-lg"
+                                                : "text-lg"
+                                        }
+                                    >
+                                        Subjects
+                                    </Link>
+                                </NavbarItem>
+                                <NavbarItem>
+                                    <Link
+                                        to='/all-blogs'
+                                        className={
+                                            location.pathname === '/all-blogs'
+                                                ? "font-semibold text-lg"
+                                                : "text-lg"
+                                        }
+                                    >
+                                        Blogs
+                                    </Link>
+                                </NavbarItem>
 
-                                <NavbarItem
-
-                                >
+                                <NavbarItem>
                                     <Link
                                         to='/contact'
                                         className={
@@ -223,8 +182,9 @@ export default function NavBar() {
                                         Contact
                                     </Link>
                                 </NavbarItem>
+
                                 <NavbarItem>
-                                    <Link to='/login'>Login</Link>
+                                    <Link to='/login'>Sign In</Link>
                                 </NavbarItem>
                             </NavbarMenu>
                         </Navbar>
