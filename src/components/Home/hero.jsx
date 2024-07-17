@@ -17,8 +17,11 @@ const HeroSection = () => {
           /> */}
           <img src={shape2} alt="shape2" className="xc 2xl:ud-block h u p va" />
           <img src={shape3} alt="shape3" className="xc 2xl:ud-block h v w va" />
-          <img src={Hero} alt="shape4" className="h q r sm:pt-[100px] 2xl:pt-[150px] mt-10" />
-
+          <img
+            src={Hero}
+            alt="shape4"
+            className="h q r sm:pt-[100px] 2xl:pt-[150px] mt-10"
+          />
         </div>
 
         {/* <!-- Hero Content --> */}
@@ -35,7 +38,10 @@ const HeroSection = () => {
               </p>
 
               <div className="tc tf yo zf mb">
-                <a href="/login" className="ek jk lk gh gi hi rg ml il vc _d _l">
+                <a
+                  href="/login"
+                  className="ek jk lk gh gi hi rg ml il vc _d _l"
+                >
                   Get Started Now
                 </a>
 
