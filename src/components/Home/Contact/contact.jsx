@@ -64,7 +64,7 @@ export default function Contact() {
         <div>
 
             <NavBar />
-            <div className='container pt-[60px]'>
+            <div className='container pt-[60px] 2xl:pt-[100px]'>
 
                 <div class="responsive-container-block bigContainer">
                     <div class="responsive-container-block Container">

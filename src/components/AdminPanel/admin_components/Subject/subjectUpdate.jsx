@@ -56,7 +56,7 @@ export default function SubjectUpdate() {
     const formData = new FormData();
     formData.append("id", ID);
     formData.append("title", title);
-    formData.append("category", categoryID ? categoryID : category);
+    formData.append("category", category ? category : categoryID);
     formData.append("description", desc);
     formData.append("image", image ? image : oldImage);
     formData.append("startDate", fromDate);

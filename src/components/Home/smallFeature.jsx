@@ -13,8 +13,8 @@ export function Small() {
                 <img src={icon1} alt="Icon" />
               </div>
               <div>
-                <h4 className="ek yj go kk wm xb">24/7 Support</h4>
-                <p>Lorem ipsum dolor sit amet conse adipiscing elit.</p>
+                <h4 className="ek yj go kk wm xb">24/7 Education</h4>
+                <p>Online courses, learn anywhere and anytime. Get certified with our best selling online courses today!</p>
               </div>
             </div>
 
@@ -25,7 +25,7 @@ export function Small() {
               </div>
               <div>
                 <h4 className="ek yj go kk wm xb">Take Lessons</h4>
-                <p>Lorem ipsum dolor sit amet conse adipiscing elit.</p>
+                <p>We help students pursue their passion for learning. </p>
               </div>
             </div>
 
@@ -35,8 +35,8 @@ export function Small() {
                 <img src={icon3} alt="Icon" />
               </div>
               <div>
-                <h4 className="ek yj go kk wm xb">Team Work</h4>
-                <p>Lorem ipsum dolor sit amet conse adipiscing elit.</p>
+                <h4 className="ek yj go kk wm xb">Network</h4>
+                <p>Networking is the process of making connections and building relationships.</p>
               </div>
             </div>
           </div>

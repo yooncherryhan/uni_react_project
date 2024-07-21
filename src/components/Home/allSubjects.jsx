@@ -21,7 +21,7 @@ const AllSubject = () => {
             <NavBar />
             <div className='responsive-container-block bigContainer'>
                 <div class="responsive-container-block Container">
-                    <div className='container pt-[40px] md:pt-[80px]'>
+                    <div className='container pt-[40px] md:pt-[80px] 2xl:pt-[100px]'>
                         <p class="text-blk heading text-center">
                             Subjects For You
                         </p>

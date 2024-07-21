@@ -32,9 +32,7 @@ export function About() {
                 We Make Our students happy by giving Best services.
               </h2>
               <p className="uo">
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum.
+                An online learning platform allows students to access and absorb educational content in a strictly digital fashion, in either groups or individual settings. Online learning can take place live at set times, or it can entail pre-recorded lessons for students to complete on their own time
               </p>
 
               <a
