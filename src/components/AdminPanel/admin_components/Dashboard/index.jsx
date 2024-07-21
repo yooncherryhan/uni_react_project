@@ -1,14 +1,13 @@
 import {
-  Button,
   Divider,
   Avatar,
   Image,
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
+  Modal,
+  ModalContent,
+  ModalFooter,
+  ModalBody,
+  ModalHeader,
+  useDisclosure
 } from "@nextui-org/react";
 import React, { useEffect, useState, Children } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
@@ -36,8 +35,11 @@ import SubjectUpdate from "../Subject/subjectUpdate";
 import BlogCreate from "../Blog/blogCreate";
 import BlogTable from "../Blog/blogList";
 import BlogUpdate from "../Blog/blogUpdate";
+import ProfileModal from "../../../profileUpdateModalBox";
 const Container = ({ text, children }) => {
   const ID = localStorage.getItem("data");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [size, setSize] = useState('2xl')
   const [showSidebar, setShowSidebar] = useState(true);
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
@@ -69,10 +71,14 @@ const Container = ({ text, children }) => {
     });
     navigate("/");
   };
+
+  const handleOpen = () => {
+    onOpen()
+  }
   return (
     <div>
       <div
-        className={`top-0 left-0 w-[20vw] bg-blue-950 p-5 flex flex-col gap-3  text-white fixed h-screen scroll-smooth overflow-y-scroll z-40  ease-in-out duration-300 ${showSidebar ? " translate-x-0" : " -translate-x-[180px]"
+        className={`top-0 left-0 w-[20vw] 2xl:w-[18vw] bg-blue-950 p-5 flex flex-col gap-3  text-white fixed h-screen scroll-smooth overflow-y-scroll z-40  ease-in-out duration-300 ${showSidebar ? " translate-x-0" : " -translate-x-[180px]"
           }`}
       >
         {showSidebar ? (
@@ -182,12 +188,16 @@ const Container = ({ text, children }) => {
               {userData.name} {text}
               {children}
             </span>
+            <ProfileModal size={size} onOpen={onOpen} isOpen={isOpen} onClose={onClose} id={ID} />
             <Avatar
               src={
                 "http://localhost:5000/upload/" + userData?.image?.originalname
               }
               className=" w-[40px] h-[40px]"
+              onClick={() => handleOpen()}
             />
+            {/* </ProfileModal> */}
+
           </div>
         </div>
 

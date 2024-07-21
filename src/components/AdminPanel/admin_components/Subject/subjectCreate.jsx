@@ -15,11 +15,10 @@ export default function SubjectCreate() {
     const [image, setImage] = useState("");
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
-
     const [desc, setDesc] = useState('')
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
-    const [instructors, setInstructors] = useState('');
+    const [refName, setRefName] = useState('');
     // const [data, setData] = useState([]);
     // const dataArr = [...data, instructors?.split(',')]
     // console.log(JSON.stringify({ data: instructors?.split(',') }), 'inst')
@@ -65,6 +64,7 @@ export default function SubjectCreate() {
         formData.append("endDate", toDate);
         formData.append("price", price);
         formData.append("duration", duration);
+        formData.append("refLink", refName);
         formData.append("videoLink", JSON.stringify(newVideoLink));
 
         await Post('subject', formData, {
@@ -224,6 +224,20 @@ export default function SubjectCreate() {
                         labelPlacement='outside'
                     />
                     <div></div>
+                </div>
+                <div className='flex '>
+
+                    <div className='flex flex-col gap-2 w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-1'>
+                        <label className='text-sm font-semibold'>Refrence Name</label>
+                        <Input
+                            type='text'
+                            variant={variant}
+                            onChange={(e) => setRefName(e.target.value)}
+
+                        />
+
+                    </div>
+
                 </div>
                 <div className=' w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2'>
                     <label

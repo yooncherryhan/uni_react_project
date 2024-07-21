@@ -18,11 +18,12 @@ import {
 } from "@nextui-org/react";
 // import { Button } from '@nextui-org/button'
 import React, { useEffect, useState } from "react";
-import api, { Delete, Get, GetDetail, ImageURL } from "../../../../../utils/API/api";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import api, { Delete, Get, GetDetail, ImageURL, Update } from "../../../../../utils/API/api";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function UserTable() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
     const ID = localStorage.getItem("data");
     // console.log(ID, "da");
     const [userData, setUserData] = useState([]);
@@ -30,19 +31,13 @@ export default function UserTable() {
     const [delID, setDelID] = useState(null);
     const [page, setPage] = React.useState(1);
     const [pages, setPages] = React.useState(1);
-    const [rowsPerPage, setRowsPerPage] = React.useState(15);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const items = React.useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         return allUserList.slice(start, end);
     }, [page, allUserList]);
-
-    // const handleKeyDown = (event) => {
-    //     if (event.key === "Enter" && isOpen) {
-    //         handleDelete();
-    //     }
-    // };
 
     const onRowsChange = (event) => {
         const newRowsPerPage = parseInt(event.target.value);
@@ -55,12 +50,18 @@ export default function UserTable() {
         const getUser = async () => {
             const result = await GetDetail("users/", ID);
             setUserData(result.data);
+
             // console.log(result.data, "reswa");
         };
 
         const getAllUser = async () => {
             const all = await Get("users");
             setAllUserList(all.data);
+            setPages(
+                all.data.length % rowsPerPage === 0
+                    ? all.data.length / rowsPerPage
+                    : all.data.length / rowsPerPage + 1
+            );
         };
         getAllUser();
         getUser();
@@ -149,9 +150,10 @@ export default function UserTable() {
                             <TableCell>{item?.email}</TableCell>
                             <TableCell>{item?.phone}</TableCell>
                             <TableCell>{item?.role}</TableCell>
+
                             <TableCell><img src={'http://localhost:5000/upload/' + item?.image?.originalname} className=' w-[40px] h-[40px] rounded-lg' /></TableCell>
                             <TableCell className='flex gap-2'>
-                                {/* <button className='button-warning'>Update</button> */}
+                                {/* {item.role === 'admin' ? <button className='p-2  text-center rounded-lg text-yellow-500' onClick={() => handleUpdateOpen(size)}><FontAwesomeIcon icon={faEdit} size='lg' /></button> : <button className='p-2  text-center rounded-lg text-yellow-500 pl-6'></button>} */}
                                 <button className='text-red-600' onClick={() => handleOpen(item._id)}><FontAwesomeIcon icon={faTrash} size='xl' /></button>
                             </TableCell>
                         </TableRow>
@@ -188,6 +190,8 @@ export default function UserTable() {
                     )}
                 </ModalContent>
             </Modal>
+
+
         </>
     )
 }

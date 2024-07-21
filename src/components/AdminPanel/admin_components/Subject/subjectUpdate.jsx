@@ -17,13 +17,14 @@ export default function SubjectUpdate() {
   const [image, setImage] = useState("");
   const [oldImage, setOldImage] = useState("");
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-
+  const [refName, setRefName] = useState('');
   const [desc, setDesc] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [newVideoLink, setNewVideoLink] = useState([]);
   const [categoryID, setCategoryID] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+  const [category, setCategory] = useState("");
   const [videoLinks, setVideoLinks] = useState("");
   const [price, setPrice] = useState("");
   const [duration, setDuration] = useState("");
@@ -85,13 +86,14 @@ export default function SubjectUpdate() {
       setTitle(subDetail.data.title);
       setPrice(subDetail.data?.price);
       setDuration(subDetail.data?.duration);
-      setCategory(subDetail.data.category?.title);
+      setCategoryName(subDetail.data.category?.title);
       setCategoryID(subDetail.data.category?._id);
       setFromDate(subDetail.data?.startDate);
       setToDate(subDetail.data?.endDate);
       setOldImage(subDetail.data?.image);
       setDesc(subDetail.data?.description);
       setNewVideoLink(JSON.parse(subDetail.data?.videoLink));
+      setRefName(subDetail.data.refLink ? subDetail.data.refLink : '')
     };
     const getSubjectList = async () => {
       const list = await Get("categories");
@@ -134,8 +136,8 @@ export default function SubjectUpdate() {
               onChange={(e) => setCategory(e.target.value)}
               className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-xl m-0 px-0 py-2 focus:ring-gray-500 focus:border-gray-500 block w-full p-3 dark:bg-default-100 dark:border-gray-600 dark:placeholder-gray-100 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
             >
-              <option value={categoryID} hidden>
-                {category}
+              <option hidden>
+                {categoryName}
               </option>
               {categoryList.map((item) => (
                 <option key={item._id} value={item._id}>
@@ -237,6 +239,21 @@ export default function SubjectUpdate() {
             labelPlacement="outside"
           />
           <div></div>
+        </div>
+        <div className='flex '>
+
+          <div className='flex flex-col gap-2 w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-1'>
+            <label className='text-sm font-semibold'>Refrence Name</label>
+            <Input
+              type='text'
+              variant={variant}
+              value={refName}
+              onChange={(e) => setRefName(e.target.value)}
+
+            />
+
+          </div>
+
         </div>
         <div className=" w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
           <label className={`text-sm font-semibold`}>About Subject</label>

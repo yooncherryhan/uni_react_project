@@ -33,7 +33,7 @@ export default function UserTable() {
     const [delID, setDelID] = useState(null);
     const [page, setPage] = React.useState(1);
     const [pages, setPages] = React.useState(1);
-    const [rowsPerPage, setRowsPerPage] = React.useState(15);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const items = React.useMemo(() => {
         const start = (page - 1) * rowsPerPage;
@@ -64,6 +64,11 @@ export default function UserTable() {
         const getAllUser = async () => {
             const all = await Get("categories");
             setAllCategoryList(all.data);
+            setPages(
+                all.data.length % rowsPerPage === 0
+                    ? all.data.length / rowsPerPage
+                    : all.data.length / rowsPerPage + 1
+            );
         };
         getAllUser();
         getUser();
