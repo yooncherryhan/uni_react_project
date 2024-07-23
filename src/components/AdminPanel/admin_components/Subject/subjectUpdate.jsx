@@ -17,7 +17,7 @@ export default function SubjectUpdate() {
   const [image, setImage] = useState("");
   const [oldImage, setOldImage] = useState("");
   const [title, setTitle] = useState("");
-  const [refName, setRefName] = useState('');
+  const [refName, setRefName] = useState("");
   const [desc, setDesc] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -64,6 +64,7 @@ export default function SubjectUpdate() {
     formData.append("endDate", toDate);
     formData.append("price", price);
     formData.append("duration", duration);
+    formData.append("refLink", refName);
     formData.append("videoLink", JSON.stringify(newVideoLink));
 
     await Update(
@@ -93,7 +94,7 @@ export default function SubjectUpdate() {
       setOldImage(subDetail.data?.image);
       setDesc(subDetail.data?.description);
       setNewVideoLink(JSON.parse(subDetail.data?.videoLink));
-      setRefName(subDetail.data.refLink ? subDetail.data.refLink : '')
+      setRefName(subDetail.data.refLink ? subDetail.data.refLink : "");
     };
     const getSubjectList = async () => {
       const list = await Get("categories");
@@ -136,9 +137,7 @@ export default function SubjectUpdate() {
               onChange={(e) => setCategory(e.target.value)}
               className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-xl m-0 px-0 py-2 focus:ring-gray-500 focus:border-gray-500 block w-full p-3 dark:bg-default-100 dark:border-gray-600 dark:placeholder-gray-100 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
             >
-              <option hidden>
-                {categoryName}
-              </option>
+              <option hidden>{categoryName}</option>
               {categoryList.map((item) => (
                 <option key={item._id} value={item._id}>
                   {item.title}
@@ -240,20 +239,16 @@ export default function SubjectUpdate() {
           />
           <div></div>
         </div>
-        <div className='flex '>
-
-          <div className='flex flex-col gap-2 w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-1'>
-            <label className='text-sm font-semibold'>Refrence Name</label>
+        <div className="flex ">
+          <div className="flex flex-col gap-2 w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-1">
+            <label className="text-sm font-semibold">Refrence Name</label>
             <Input
-              type='text'
+              type="text"
               variant={variant}
               value={refName}
               onChange={(e) => setRefName(e.target.value)}
-
             />
-
           </div>
-
         </div>
         <div className=" w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
           <label className={`text-sm font-semibold`}>About Subject</label>

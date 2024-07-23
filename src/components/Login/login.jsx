@@ -86,32 +86,36 @@ const Login = () => {
       headers: { "Content-Type": "multipart/form-data" },
     });
     setShowRegForm(false);
-    setShowLogin(true)
-    setShowForgot(false)
+    setShowLogin(true);
+    setShowForgot(false);
   };
 
   const EmailSend = async () => {
     const data = {
-      email: email
-    }
-    await EmailWithPost("forgot/email", data, { headers: { "Content-Type": "application/json" } }, 'Email');
+      email: email,
+    };
+    await EmailWithPost(
+      "forgot/email",
+      data,
+      { headers: { "Content-Type": "application/json" } },
+      "Email"
+    );
     setShowRegForm(false);
-    setShowLogin(true)
-    setShowForgot(false)
-  }
+    setShowLogin(true);
+    setShowForgot(false);
+  };
 
   const handleShowForgot = () => {
     setShowRegForm(false);
-    setShowLogin(false)
-    setShowForgot(true)
-
-  }
+    setShowLogin(false);
+    setShowForgot(true);
+  };
 
   const handleShowReg = () => {
     setShowRegForm(true);
-    setShowLogin(false)
-    setShowForgot(false)
-  }
+    setShowLogin(false);
+    setShowForgot(false);
+  };
   return (
     <section className="h-screen py-5 bg-neutral-200 dark:bg-neutral-700">
       <div className="container ">
@@ -191,9 +195,10 @@ const Login = () => {
 
                           {/* <!--Forgot password link--> */}
                           {showLogin && (
-                            <button onClick={handleShowForgot}>Forgot password?</button>
+                            <button onClick={handleShowForgot}>
+                              Forgot password?
+                            </button>
                           )}
-
                         </div>
                       </form>
                     )}
@@ -208,8 +213,6 @@ const Login = () => {
                           placeholder="Enter your email"
                           onChange={(e) => setEmail(e.target.value)}
                         />
-
-
 
                         {/* <!--Submit button--> */}
                         <div className="mb-12 pb-1 pt-1 text-center">
@@ -228,7 +231,6 @@ const Login = () => {
                           </TERipple>
 
                           {/* <!--Forgot password link--> */}
-
                         </div>
                       </form>
                     )}
@@ -285,7 +287,7 @@ const Login = () => {
                         </div>
                       </form>
                     )}
-                    {(showLogin) && (
+                    {showLogin && (
                       <div className="flex items-center justify-between pb-6">
                         <p className="mb-0 mr-2">Don't have an account?</p>
                         <TERipple rippleColor="light">
@@ -312,11 +314,10 @@ const Login = () => {
                   <div className="px-4 py-6 text-white md:mx-6 md:p-12">
                     <h1 className="mb-6 text-xl font-semibold">WELCOME!</h1>{" "}
                     <p className="text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      We’re excited to have you join our learning community.
+                      Here, you can make learning English fun and easy.
                     </p>
+                    ;
                   </div>
                 </div>
               </div>

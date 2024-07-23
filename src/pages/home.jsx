@@ -13,11 +13,12 @@ import Navbar from "../components/Home/navbar";
 
 const Home = () => {
   useEffect(() => {
-    window.scroll(0, 0)
-  }, [])
+    window.scroll(0, 0);
+  }, []);
   return (
     <div>
       <Navbar />
+
       <HeroSection />
 
       <Small />
@@ -28,9 +29,7 @@ const Home = () => {
 
       <Service />
 
-      <Price />
-
-
+      {/* <Price /> */}
     </div>
   );
 };
