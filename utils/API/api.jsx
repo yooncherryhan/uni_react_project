@@ -21,6 +21,38 @@ export const Get = async (url) => {
     return response.data;
 };
 
+//email create
+export const EmailWithPost = async (url, data, conf, text) => {
+    await api
+        .post(url, data, conf)
+        .then(function (res) {
+
+            Swal.fire({
+                title: "Successful!",
+                text: `Check your ${text} for password!`,
+                icon: "success",
+                // showCancelButton: true,
+                showConfirmButton: false,
+                timer: 4000,
+            });
+
+            return res.data.data
+
+        })
+        .catch(function (err) {
+            Swal.fire({
+                title: "Something Wrong!",
+                text: "Try again, Please.",
+                icon: "warning",
+                // showCancelButton: true,
+
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        });
+};
+
+
 //post
 export const Post = async (url, data, conf, text) => {
     await api
