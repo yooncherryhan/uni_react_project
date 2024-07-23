@@ -1,7 +1,7 @@
 import { Input } from "@nextui-org/react";
 import React, { useState } from "react";
 import { TEInput, TERipple } from "tw-elements-react";
-import api, { Post } from "../../../utils/API/api";
+import api, { Post, EmailWithPost } from "../../../utils/API/api";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,8 @@ const Login = () => {
   const [profile, setProfile] = useState("");
   const [password, setPassword] = useState("");
   const [showRegForm, setShowRegForm] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
+  const [showForgot, setShowForgot] = useState(false);
   const variant = "bordered";
   const Login = async () => {
     const info = {
@@ -84,6 +86,35 @@ const Login = () => {
       headers: { "Content-Type": "multipart/form-data" },
     });
     setShowRegForm(false);
+    setShowLogin(true);
+    setShowForgot(false);
+  };
+
+  const EmailSend = async () => {
+    const data = {
+      email: email,
+    };
+    await EmailWithPost(
+      "forgot/email",
+      data,
+      { headers: { "Content-Type": "application/json" } },
+      "Email"
+    );
+    setShowRegForm(false);
+    setShowLogin(true);
+    setShowForgot(false);
+  };
+
+  const handleShowForgot = () => {
+    setShowRegForm(false);
+    setShowLogin(false);
+    setShowForgot(true);
+  };
+
+  const handleShowReg = () => {
+    setShowRegForm(true);
+    setShowLogin(false);
+    setShowForgot(false);
   };
   return (
     <section className="h-screen py-5 bg-neutral-200 dark:bg-neutral-700">
@@ -106,59 +137,7 @@ const Login = () => {
                         Please login to your account
                       </h4>
                     </div>
-                    {showRegForm === true ? (
-                      <form className="flex flex-col gap-3">
-                        {/* <p className="mb-4">Please login to your account</p> */}
-                        {/* <!--Username input--> */}
-                        <Input
-                          variant={variant}
-                          className="bg-white"
-                          type="text"
-                          placeholder="Username"
-                          onChange={(e) => setMyName(e.target.value)}
-                        />
-
-                        {/* <!--Password input--> */}
-                        <Input
-                          variant={variant}
-                          className="bg-white"
-                          type="text"
-                          placeholder="Email"
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <Input
-                          variant={variant}
-                          className="bg-white"
-                          type="phone"
-                          placeholder="Phone no"
-                          onChange={(e) => setPhone(e.target.value)}
-                        />
-                        <input
-                          variant={variant}
-                          className="bg-white border-1 border-slate-300 p-2"
-                          type="file"
-                          placeholder="Image"
-                          onChange={(e) => setProfile(e.target.files[0])}
-                        />
-
-                        {/* <!--Submit button--> */}
-                        <div className="mb-12 pb-1 pt-1 text-center">
-                          <TERipple rippleColor="light" className="w-full">
-                            <button
-                              className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
-                              type="button"
-                              style={{
-                                background:
-                                  "linear-gradient(to right, #a8c0ff, #3f2b96)",
-                              }}
-                              onClick={handleReg}
-                            >
-                              Register
-                            </button>
-                          </TERipple>
-                        </div>
-                      </form>
-                    ) : (
+                    {showLogin && (
                       <form className="flex flex-col gap-3">
                         {/* <p className="mb-4">Please login to your account</p> */}
                         {/* <!--Username input--> */}
@@ -215,17 +194,106 @@ const Login = () => {
                           </TERipple>
 
                           {/* <!--Forgot password link--> */}
-                          <a href="#!">Forgot password?</a>
+                          {showLogin && (
+                            <button onClick={handleShowForgot}>
+                              Forgot password?
+                            </button>
+                          )}
                         </div>
                       </form>
                     )}
-                    {showRegForm === false && (
+                    {showForgot && (
+                      <form className="flex flex-col gap-3">
+                        {/* <p className="mb-4">Please login to your account</p> */}
+                        {/* <!--Username input--> */}
+                        <Input
+                          variant={variant}
+                          className="bg-white"
+                          type="text"
+                          placeholder="Enter your email"
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+
+                        {/* <!--Submit button--> */}
+                        <div className="mb-12 pb-1 pt-1 text-center">
+                          <TERipple rippleColor="light" className="w-full">
+                            <button
+                              className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
+                              type="button"
+                              style={{
+                                background:
+                                  "linear-gradient(to right, #a8c0ff, #3f2b96)",
+                              }}
+                              onClick={EmailSend}
+                            >
+                              Send
+                            </button>
+                          </TERipple>
+
+                          {/* <!--Forgot password link--> */}
+                        </div>
+                      </form>
+                    )}
+                    {showRegForm && (
+                      <form className="flex flex-col gap-3">
+                        {/* <p className="mb-4">Please login to your account</p> */}
+                        {/* <!--Username input--> */}
+                        <Input
+                          variant={variant}
+                          className="bg-white"
+                          type="text"
+                          placeholder="Username"
+                          onChange={(e) => setMyName(e.target.value)}
+                        />
+
+                        {/* <!--Password input--> */}
+                        <Input
+                          variant={variant}
+                          className="bg-white"
+                          type="text"
+                          placeholder="Email"
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <Input
+                          variant={variant}
+                          className="bg-white"
+                          type="phone"
+                          placeholder="Phone no"
+                          onChange={(e) => setPhone(e.target.value)}
+                        />
+                        <input
+                          variant={variant}
+                          className="bg-white border-1 border-slate-300 p-2"
+                          type="file"
+                          placeholder="Image"
+                          onChange={(e) => setProfile(e.target.files[0])}
+                        />
+
+                        {/* <!--Submit button--> */}
+                        <div className="mb-12 pb-1 pt-1 text-center">
+                          <TERipple rippleColor="light" className="w-full">
+                            <button
+                              className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
+                              type="button"
+                              style={{
+                                background:
+                                  "linear-gradient(to right, #a8c0ff, #3f2b96)",
+                              }}
+                              onClick={handleReg}
+                            >
+                              Register
+                            </button>
+                          </TERipple>
+                        </div>
+                      </form>
+                    )}
+                    {showLogin && (
                       <div className="flex items-center justify-between pb-6">
                         <p className="mb-0 mr-2">Don't have an account?</p>
                         <TERipple rippleColor="light">
                           <button
                             className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-                            onClick={() => setShowRegForm(true)}
+                            onClick={handleShowReg}
                           >
                             Register
                           </button>
@@ -249,6 +317,7 @@ const Login = () => {
                       We’re excited to have you join our learning community.
                       Here, you can make learning English fun and easy.
                     </p>
+                    ;
                   </div>
                 </div>
               </div>
