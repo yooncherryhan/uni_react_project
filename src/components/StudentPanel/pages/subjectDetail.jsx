@@ -27,9 +27,17 @@ const SubjectDetail = () => {
   };
   return (
     <div className="container">
-      <Link to="/student">
-        <FontAwesomeIcon icon={faCircleLeft} size="2xl" className="py-5" />
-      </Link>
+      <div className="flex justify-between py-5">
+        <Link to="/student">
+          <FontAwesomeIcon icon={faCircleLeft} size="2xl" className="py-5" />
+        </Link>
+        <div className="flex gap-2 py-5">
+          <span className="text-[17px] font-semibold">Refrence By :</span>
+          <i className="text-[17px] font-semibold underline">
+            {subjectList?.refLink}
+          </i>
+        </div>
+      </div>
 
       <div className="flex lg:flex-row flex-col gap-10 ">
         <div className="flex flex-col gap-2">

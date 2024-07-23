@@ -124,7 +124,7 @@ export default function BlogTable() {
           <TableColumn>Code</TableColumn>
           <TableColumn>Created Date</TableColumn>
           <TableColumn>Title</TableColumn>
-          <TableColumn>Sub Title</TableColumn>
+          <TableColumn>Author Name</TableColumn>
           <TableColumn>Image</TableColumn>
           <TableColumn>Description</TableColumn>
 

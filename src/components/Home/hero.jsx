@@ -29,12 +29,13 @@ const HeroSection = () => {
           <div className="tc _o">
             <div className="animate_left jn/2">
               <h1 className="fk vj zp or kk wm wb w-full font-black">
-                We specialize in UI/UX, Web Development, Digital Marketing.
+                Discover the Joy of Learning English with Us!
               </h1>
               <p className="fq">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                fringilla magna mauris. Nulla fermentum viverra sem eu rhoncus
-                consequat varius nisi quis, posuere magna.
+                Welcome to our English learning platform, where we make
+                mastering the English language an enjoyable and rewarding
+                experience. Join us and explore a world of opportunities through
+                effective and engaging language education.
               </p>
 
               <div className="tc tf yo zf mb">

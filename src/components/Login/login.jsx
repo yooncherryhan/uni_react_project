@@ -246,10 +246,8 @@ const Login = () => {
                   <div className="px-4 py-6 text-white md:mx-6 md:p-12">
                     <h1 className="mb-6 text-xl font-semibold">WELCOME!</h1>{" "}
                     <p className="text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      We’re excited to have you join our learning community.
+                      Here, you can make learning English fun and easy.
                     </p>
                   </div>
                 </div>

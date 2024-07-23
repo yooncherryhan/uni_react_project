@@ -32,20 +32,13 @@ export function About() {
                 We Make Our students happy by giving Best services.
               </h2>
               <p className="uo">
-                An online learning platform allows students to access and absorb educational content in a strictly digital fashion, in either groups or individual settings. Online learning can take place live at set times, or it can entail pre-recorded lessons for students to complete on their own time
+                Our team works hard to create a friendly and helpful environment
+                where students can succeed. We offer personalized guidance and
+                full support, ensuring each student feels valued and capable of
+                achieving their goals. Our dedication to quality means we always
+                provide top education and resources, making us a trusted choice
+                for students.
               </p>
-
-              <a
-                href="https://www.youtube.com/watch?v=xcJtL7QggTI"
-                data-fslightbox
-                className="vc wf hg mb"
-              >
-                <span className="tc wf xf be dd rg i gh ua">
-                  <span className="nf h vc yc vd rg gh qk -ud-z-1"></span>
-                  <img src={iconplay} alt="Play" />
-                </span>
-                <span className="kk">SEE HOW WE WORK</span>
-              </a>
             </div>
           </div>
         </div>

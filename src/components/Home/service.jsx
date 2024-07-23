@@ -23,60 +23,33 @@ export function Service() {
             {/* <!-- Service Item --> */}
             <div className="animate_top sg oi pi zq ml il am cn _m">
               <img src={icon4} alt="Icon" />
-              <h4 className="ek zj kk wm nb _b">Crafted for Startups</h4>
+              <h4 className="ek zj kk wm nb _b">Flexible Learning</h4>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                convallis tortor.
+                Learn at your own convenience with our flexible online platform.
+                Whether you’re at home or on the go, our resources are available
+                to fit your schedule.
               </p>
             </div>
 
             {/* <!-- Service Item --> */}
             <div className="animate_top sg oi pi zq ml il am cn _m">
               <img src={icon5} alt="Icon" />
-              <h4 className="ek zj kk wm nb _b">High-quality Design</h4>
+              <h4 className="ek zj kk wm nb _b">Experienced Instructors</h4>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                convallis tortor.
+                Benefit from the knowledge and expertise of our experienced
+                instructors who are passionate about teaching and committed to
+                your success.
               </p>
             </div>
 
             {/* <!-- Service Item --> */}
             <div className="animate_top sg oi pi zq ml il am cn _m">
               <img src={icon6} alt="Icon" />
-              <h4 className="ek zj kk wm nb _b">All Essential Sections</h4>
+              <h4 className="ek zj kk wm nb _b">Continuous Updates</h4>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                convallis tortor.
-              </p>
-            </div>
-
-            {/* <!-- Service Item --> */}
-            <div className="animate_top sg oi pi zq ml il am cn _m">
-              <img src={icon7} alt="Icon" />
-              <h4 className="ek zj kk wm nb _b">Speed Optimized</h4>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                convallis tortor.
-              </p>
-            </div>
-
-            {/* <!-- Service Item --> */}
-            <div className="animate_top sg oi pi zq ml il am cn _m">
-              <img src={icon5} alt="Icon" />
-              <h4 className="ek zj kk wm nb _b">Fully Customizable</h4>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                convallis tortor.
-              </p>
-            </div>
-
-            {/* <!-- Service Item --> */}
-            <div className="animate_top sg oi pi zq ml il am cn _m">
-              <img src={icon6} alt="Icon" />
-              <h4 className="ek zj kk wm nb _b">Regular Updates</h4>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                convallis tortor.
+                We regularly refresh our content and introduce new features to
+                ensure you have access to the latest language learning trends
+                and methodologies.
               </p>
             </div>
           </div>
