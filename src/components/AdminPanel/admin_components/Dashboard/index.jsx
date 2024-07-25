@@ -7,7 +7,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalHeader,
-  useDisclosure
+  useDisclosure,
 } from "@nextui-org/react";
 import React, { useEffect, useState, Children } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
@@ -19,7 +19,7 @@ import {
   faRightLeft,
   faXmark,
   faUsers,
-  faBlog
+  faBlog,
 } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../../../assets/images/ellogo.png";
 
@@ -39,7 +39,7 @@ import ProfileModal from "../../../profileUpdateModalBox";
 const Container = ({ text, children }) => {
   const ID = localStorage.getItem("data");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [size, setSize] = useState('2xl')
+  const [size, setSize] = useState("2xl");
   const [showSidebar, setShowSidebar] = useState(true);
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
@@ -73,23 +73,25 @@ const Container = ({ text, children }) => {
   };
 
   const handleOpen = () => {
-    onOpen()
-  }
+    onOpen();
+  };
   return (
     <div>
       <div
-        className={`top-0 left-0 w-[20vw] 2xl:w-[18vw] bg-blue-950 p-5 flex flex-col gap-3  text-white fixed h-screen scroll-smooth overflow-y-scroll z-40  ease-in-out duration-300 ${showSidebar ? " translate-x-0" : " -translate-x-[180px]"
-          }`}
+        className={`top-0 left-0 w-[20vw] 2xl:w-[18vw] bg-blue-950 p-5 flex flex-col gap-3  text-white fixed h-screen scroll-smooth overflow-y-scroll z-40  ease-in-out duration-300 ${
+          showSidebar ? " translate-x-0" : " -translate-x-[180px]"
+        }`}
       >
         {showSidebar ? (
           <>
             <div className=" h-[40px] overflow-auto">
               <button
                 onClick={() => setShowSidebar(!showSidebar)}
-                className={`fixed  z-30 flex items-center cursor-pointer ${showSidebar
-                  ? "left-[100px] translate-x-[100px]"
-                  : "left-[200px] -translate-x-[100px]"
-                  } top-6`}
+                className={`fixed  z-30 flex items-center cursor-pointer ${
+                  showSidebar
+                    ? "left-[100px] translate-x-[100px]"
+                    : "left-[200px] -translate-x-[100px]"
+                } top-6`}
               >
                 <FontAwesomeIcon icon={faXmark} size="xl" />
               </button>
@@ -161,8 +163,7 @@ const Container = ({ text, children }) => {
               to="/subject"
               className="text-[20px] md:text-[25px] text-end font-semibold text-white"
             >
-              <FontAwesomeIcon icon={faBlog} size='lg' />
-
+              <FontAwesomeIcon icon={faBlog} size="lg" />
             </Link>
             <div className="overflow-hidden flex justify-end items-end">
               <span
@@ -176,42 +177,55 @@ const Container = ({ text, children }) => {
         )}
       </div>
       <div
-        className={`top-0 right-0   flex flex-col   text-white fixed overflow-scroll scroll-smooth  z-40  ease-in-out duration-300 ${showSidebar
-          ? " translate-x-0 w-[80vw]"
-          : "  -translate-x-[12px] w-[92vw]"
-          }`}
+        className={`top-0 right-0   flex flex-col   text-white fixed overflow-scroll scroll-smooth  z-40  ease-in-out duration-300 ${
+          showSidebar
+            ? " translate-x-0 w-[80vw]"
+            : "  -translate-x-[12px] w-[92vw]"
+        }`}
       >
         <div className="h-[100px] text-black flex justify-between items-center mx-2">
           <Image src={Logo} className="w-[150px] h-[70px]" />
           <div className="flex gap-2 justify-center items-center">
-            <span>
-              {userData.name} {text}
-              {children}
-            </span>
-            <ProfileModal size={size} onOpen={onOpen} isOpen={isOpen} onClose={onClose} id={ID} />
+            <div className="flex flex-col gap-1 justify-center font-semibold items-center">
+              <span>{userData.name}</span>
+              {/* <span>{userData?.email}</span> */}
+            </div>
+
+            <ProfileModal
+              size={size}
+              onOpen={onOpen}
+              isOpen={isOpen}
+              onClose={onClose}
+              id={ID}
+            />
             <Avatar
               src={
                 "http://localhost:5000/upload/" + userData?.image?.originalname
               }
-              className=" w-[40px] h-[40px]"
+              className=" w-[40px] h-[40px] border-1 border-slate-400 rounded-[50%]"
               onClick={() => handleOpen()}
             />
             {/* </ProfileModal> */}
-
           </div>
         </div>
 
         <div className="h-[500px] text-black p-2">
           {useLocation().pathname === "/users" && <UserTable />}
           {useLocation().pathname === "/category-create" && <CategoryCreate />}
-          {useLocation().pathname.split('/')[1] === "category-update" && <CategoryUpdate />}
+          {useLocation().pathname.split("/")[1] === "category-update" && (
+            <CategoryUpdate />
+          )}
           {useLocation().pathname === "/category" && <CategoryList />}
           {useLocation().pathname === "/subject" && <SubjectTable />}
           {useLocation().pathname === "/subject-create" && <SubjectCreate />}
-          {useLocation().pathname.split('/')[1] === "subject-update" && <SubjectUpdate />}
+          {useLocation().pathname.split("/")[1] === "subject-update" && (
+            <SubjectUpdate />
+          )}
           {useLocation().pathname === "/blog-create" && <BlogCreate />}
           {useLocation().pathname === "/blog" && <BlogTable />}
-          {useLocation().pathname.split('/')[1] === "blog-update" && <BlogUpdate />}
+          {useLocation().pathname.split("/")[1] === "blog-update" && (
+            <BlogUpdate />
+          )}
         </div>
       </div>
     </div>

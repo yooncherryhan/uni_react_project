@@ -36,11 +36,11 @@ export default function StudentNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [size, setSize] = useState('2xl')
+  const [size, setSize] = useState("2xl");
   const [image, setImage] = useState("");
   const [oldImage, setOldImage] = useState("");
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
 
   const handleImage = (e) => {
     if (e.target.files) {
@@ -67,17 +67,17 @@ export default function StudentNav() {
       setUserData(result.data);
       console.log(result.data, "reswa");
       setOldImage(result.data?.image);
-      setName(result.data?.name)
-      setPhone(result.data?.phone)
+      setName(result.data?.name);
+      setPhone(result.data?.phone);
     };
 
     getUser();
   }, []);
 
   const handleOpen = (size) => {
-    setSize(size)
+    setSize(size);
     onOpen();
-  }
+  };
 
   const handleUserUpdate = async () => {
     const formData = new FormData();
@@ -97,7 +97,7 @@ export default function StudentNav() {
       },
       "Student"
     );
-  }
+  };
   return (
     <>
       <div className="fixed bg-white z-50  md:shadow-md lg:shadow-lg w-full  md:p-1 lg:p-6 2xl:p-2 ">
@@ -141,10 +141,11 @@ export default function StudentNav() {
                     as="button"
                     avatarProps={{
                       isBordered: true,
-                      src: `http://localhost:5000/upload/${userData?.image?.originalname
-                        ? userData?.image?.originalname
-                        : ""
-                        }`,
+                      src: `http://localhost:5000/upload/${
+                        userData?.image?.originalname
+                          ? userData?.image?.originalname
+                          : ""
+                      }`,
                     }}
                     className="transition-transform"
                     description={userData?.email}
@@ -156,16 +157,15 @@ export default function StudentNav() {
                     <p className="font-bold">Signed in as</p>
                     <p className="font-bold lowercase">@{userData.name}</p>
                   </DropdownItem>
-                  <DropdownItem key="settings" onPress={() => handleOpen(size)}>My Settings</DropdownItem>
+                  <DropdownItem key="settings" onPress={() => handleOpen(size)}>
+                    My Settings
+                  </DropdownItem>
 
                   <DropdownItem key="help_and_feedback">
                     Help & Feedback
                   </DropdownItem>
-                  <DropdownItem key="logout" color="danger">
-                    <button
-                      className="hover:-translate-y-1  hover:scale-110 duration-500 "
-                      onClick={logout}
-                    >
+                  <DropdownItem key="logout" color="danger" onClick={logout}>
+                    <button className="hover:-translate-y-1  hover:scale-110 duration-500 ">
                       Logout
                     </button>
                   </DropdownItem>
@@ -200,8 +200,8 @@ export default function StudentNav() {
                     to="/home-course"
                     className={
                       location.pathname === "/home-course" ||
-                        location.pathname === "/home-course-detail" ||
-                        location.pathname === "/home-sub-detail"
+                      location.pathname === "/home-course-detail" ||
+                      location.pathname === "/home-sub-detail"
                         ? "font-semibold text-lg"
                         : "text-lg"
                     }
@@ -215,7 +215,7 @@ export default function StudentNav() {
                     to="/events"
                     className={
                       location.pathname === "/events" ||
-                        location.pathname === `/events/${ID}`
+                      location.pathname === `/events/${ID}`
                         ? "font-semibold text-lg"
                         : "text-lg"
                     }
@@ -228,7 +228,7 @@ export default function StudentNav() {
                     to="/news-activities"
                     className={
                       location.pathname === "/news-activities" ||
-                        location.pathname === `/news-activities/${ID}`
+                      location.pathname === `/news-activities/${ID}`
                         ? "font-semibold text-lg"
                         : "text-lg"
                     }
@@ -292,71 +292,72 @@ export default function StudentNav() {
               </NavbarMenu>
             </Navbar>
           </div>
-          <Modal
-            size={size}
-            isOpen={isOpen}
-            onClose={onClose}
-          >
+          <Modal size={size} isOpen={isOpen} onClose={onClose}>
             <ModalContent>
               {(onClose) => (
                 <>
-                  <ModalHeader className="flex flex-col gap-1">Profile Update</ModalHeader>
+                  <ModalHeader className="flex flex-col gap-1">
+                    Profile Update
+                  </ModalHeader>
                   <ModalBody>
-
                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1">
                       <img
                         src={
                           !image.name
-                            ? "http://localhost:5000/upload/" + oldImage.originalname
+                            ? "http://localhost:5000/upload/" +
+                              oldImage.originalname
                             : "http://localhost:5000/upload/" + image?.name
                         }
                         className=" w-[120px] h-[120px] rounded-[50%] border-1 border-slate-400 text-center"
                       />
                       <div className="flex flex-col w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
-                        <div className='flex flex-col w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-1'>
+                        <div className="flex flex-col w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-1">
                           <label className="text-sm font-semibold">Name</label>
                           <input
                             type="text"
                             labelPlacement="outside"
                             defaultValue={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="border-1 border-slate-300 rounded-md h-10 p-4" />
+                            className="border-1 border-slate-300 rounded-md h-10 p-4"
+                          />
                         </div>
-                        <div className='flex flex-col w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-1'>
-                          <label className="text-sm font-semibold">Profile</label>
+                        <div className="flex flex-col w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-1">
+                          <label className="text-sm font-semibold">
+                            Profile
+                          </label>
 
                           <input
                             type="file"
                             placeholder="$.."
-
                             labelPlacement="outside"
                             onChange={handleImage}
                             className="border-1 border-slate-300 rounded-md h-10"
                           />
                         </div>
 
-                        <div className='flex flex-col w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-1'>
+                        <div className="flex flex-col w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-1">
                           <label className="text-sm font-semibold">Phone</label>
                           <input
                             type="phone"
                             labelPlacement="outside"
                             defaultValue={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            className="border-1 border-slate-300 rounded-md h-10 p-4" />
+                            className="border-1 border-slate-300 rounded-md h-10 p-4"
+                          />
                         </div>
                         {/* {console.log('http://localhost:5000/upload/' + image?.name, 'immm')} */}
-
                       </div>
-
-
                     </div>
-
                   </ModalBody>
                   <ModalFooter>
                     <Button color="danger" variant="light" onPress={onClose}>
                       Close
                     </Button>
-                    <Button color="primary" variant="light" onClick={handleUserUpdate}>
+                    <Button
+                      color="primary"
+                      variant="light"
+                      onClick={handleUserUpdate}
+                    >
                       Update
                     </Button>
                   </ModalFooter>
