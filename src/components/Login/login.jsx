@@ -19,6 +19,7 @@ const Login = () => {
   const [showRegForm, setShowRegForm] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
   const [showForgot, setShowForgot] = useState(false);
+  const [regPassword, setRegPassword] = useState("");
   const variant = "bordered";
   const Login = async () => {
     const info = {
@@ -80,7 +81,7 @@ const Login = () => {
     formData.append("phone", phone);
     formData.append("image", profile);
     formData.append("role", "student");
-    formData.append("password", "123456");
+    formData.append("password", regPassword);
 
     await Post("user", formData, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -117,14 +118,14 @@ const Login = () => {
     setShowForgot(false);
   };
   return (
-    <section className="h-screen py-5 bg-neutral-200 dark:bg-neutral-700">
+    <section className="py-[20pxvcode]  dark:bg-neutral-700">
       <div className="container ">
         <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
-          <div className="w-full">
-            <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
-              <div className="g-0 lg:flex lg:flex-wrap">
+          <div className="w-full sm:py-[20px] xl:py-[40px]">
+            <div className=" rounded-lg bg-white shadow-lg dark:bg-neutral-800 ">
+              <div className="g-0 lg:flex lg:flex-wrap  h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] 2xl:h-[600px] ">
                 {/* <!-- Left column container--> */}
-                <div className="px-4 md:px-0 lg:w-6/12">
+                <div className="px-4 md:px-0 lg:w-6/12 items-center ">
                   <div className="md:mx-6 md:p-12">
                     {/* <!--Logo--> */}
                     <div className="text-center py-5">
@@ -257,6 +258,32 @@ const Login = () => {
                         <Input
                           variant={variant}
                           className="bg-white"
+                          type={isVisible ? "text" : "password"}
+                          placeholder="Password"
+                          endContent={
+                            <button
+                              className="focus:outline-none"
+                              type="button"
+                              onClick={toggleVisibility}
+                            >
+                              {isVisible ? (
+                                <FontAwesomeIcon
+                                  icon={faEye}
+                                  className="text-lg text-default-400 pointer-events-none"
+                                />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faEyeSlash}
+                                  className="text-lg text-default-400 pointer-events-none"
+                                />
+                              )}
+                            </button>
+                          }
+                          onChange={(e) => setRegPassword(e.target.value)}
+                        />
+                        <Input
+                          variant={variant}
+                          className="bg-white"
                           type="phone"
                           placeholder="Phone no"
                           onChange={(e) => setPhone(e.target.value)}
@@ -312,12 +339,11 @@ const Login = () => {
                   }}
                 >
                   <div className="px-4 py-6 text-white md:mx-6 md:p-12">
-                    <h1 className="mb-6 text-xl font-semibold">WELCOME!</h1>{" "}
-                    <p className="text-sm">
+                    <h1 className="mb-6 text-[30px] font-semibold">WELCOME!</h1>{" "}
+                    <p className="text-[20px] ">
                       We’re excited to have you join our learning community.
                       Here, you can make learning English fun and easy.
                     </p>
-                    ;
                   </div>
                 </div>
               </div>
