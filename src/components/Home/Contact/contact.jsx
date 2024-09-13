@@ -15,7 +15,7 @@ export default function Contact() {
 
         const templateParams = {
             to_name: "Kaung Set Hein",
-            from_name: "Client",
+            from_name: `${name}`,
             message: `${message} from ${name}(${email})`,
         };
         if (message && email && name) {

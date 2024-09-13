@@ -73,14 +73,15 @@ export const Post = async (url, data, conf, text) => {
 
         })
         .catch(function (err) {
+
             Swal.fire({
-                title: "Something Wrong!",
+                title: err.response.data.message,
                 text: "Try again, Please.",
                 icon: "warning",
                 // showCancelButton: true,
 
                 showConfirmButton: false,
-                timer: 2000,
+                timer: 5000,
             });
         });
 };
@@ -128,13 +129,13 @@ export const Update = async (url, id, data, conf, text) => {
         })
         .catch(function (err) {
             Swal.fire({
-                title: "Something Wrong!",
+                title: err.response.data.message,
                 text: "Try again, Please.",
                 icon: "warning",
                 // showCancelButton: true,
 
                 showConfirmButton: false,
-                timer: 2000,
+                timer: 5000,
             });
         });
 };

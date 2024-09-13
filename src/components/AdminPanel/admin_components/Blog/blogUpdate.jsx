@@ -20,6 +20,7 @@ export default function BlogUpdate() {
   const [desc, setDesc] = useState("");
   const [newDesc, setNewDesc] = useState([]);
   const [oldDesc, setOldDesc] = useState("");
+  const [code, setCode] = useState('')
   const {
     register,
     handleSubmit,
@@ -49,6 +50,7 @@ export default function BlogUpdate() {
     const formData = new FormData();
     formData.append("id", ID);
     formData.append("title", title);
+    formData.append("code", code);
     formData.append("subTitle", subTitle);
     formData.append("description", JSON.stringify(newDesc));
     formData.append("createdAt", formattedDate);
@@ -75,6 +77,7 @@ export default function BlogUpdate() {
       setOldImage(blogDetail.data?.image);
       setDesc(blogDetail.data?.description);
       setOldDesc(blogDetail.data?.description);
+      setCode(blogDetail.data?.code)
       setNewDesc(JSON.parse(blogDetail.data?.description));
     };
 
@@ -84,6 +87,18 @@ export default function BlogUpdate() {
     <div className="gap-4">
       <form onSubmit={handleSubmit(create)}>
         <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1">
+          <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
+            <label className="text-sm font-semibold">Code</label>
+            <Input
+              type="text"
+              placeholder="Enter code"
+              variant={variant}
+              value={code}
+
+              onChange={(e) => setCode(e.target.value)}
+              labelPlacement="outside"
+            />
+          </div>
           <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
             <label className="text-sm font-semibold">Blog Title</label>
             <Input
@@ -95,6 +110,10 @@ export default function BlogUpdate() {
               labelPlacement="outside"
             />
           </div>
+
+        </div>
+
+        <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1">
           <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-2 gap-4">
             <label className="text-sm font-semibold">Sub Title</label>
             <Input
@@ -105,9 +124,6 @@ export default function BlogUpdate() {
               onChange={(e) => setSubTitle(e.target.value)}
             />
           </div>
-        </div>
-
-        <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1">
           <div className="flex flex-col w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-1">
             <label className="text-sm font-semibold">Blog Photo</label>
 
@@ -117,7 +133,7 @@ export default function BlogUpdate() {
               variant={variant}
               labelPlacement="outside"
               onChange={handleImage}
-              className="border-1 border-slate-300 rounded-md h-10"
+              className="border-1 border-slate-300 rounded-md mt-2 h-10"
             />
             <img
               src={
@@ -181,7 +197,7 @@ export default function BlogUpdate() {
         </div>
 
         <div className="flex justify-center gap-10 py-4">
-          <CancelButton back={`/subject`} />
+          <CancelButton back={`/blog`} />
           <CreateTypeButton type={`submit`} />
         </div>
       </form>

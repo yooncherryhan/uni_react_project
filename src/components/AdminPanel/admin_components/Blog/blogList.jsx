@@ -12,6 +12,7 @@ import {
   TableCell,
   useDisclosure,
   Pagination,
+  Input,
 } from "@nextui-org/react";
 // import { Button } from '@nextui-org/button'
 import React, { useEffect, useState } from "react";
@@ -31,12 +32,12 @@ export default function BlogTable() {
   const [page, setPage] = React.useState(1);
   const [pages, setPages] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  const [filterList, setFilterList] = useState([])
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    return allBlogList.slice(start, end);
-  }, [page, allBlogList]);
+    return (filterList[0] ? filterList : allBlogList).slice(start, end);
+  }, [page, allBlogList, filterList]);
 
   const onRowsChange = (event) => {
     const newRowsPerPage = parseInt(event.target.value);
@@ -45,6 +46,22 @@ export default function BlogTable() {
     setPage(1); // Reset the current page to 1 when rows per page changes
   };
 
+  const handleSearch = (value) => {
+    if (value) {
+      setFilterList(allCategoryList.filter(
+        (el) =>
+          el.title?.toLowerCase().includes(value.toLowerCase())
+      ))
+      console.log(items.filter(
+        (el) =>
+          el.title?.toLowerCase().includes(value.toLowerCase())
+      ), 'val')
+    } else {
+      setFilterList(allCategoryList)
+      console.log(allCategoryList, 'n val')
+    }
+
+  };
   useEffect(() => {
     const getAllBlog = async () => {
       const all = await Get("blogs");
@@ -81,6 +98,11 @@ export default function BlogTable() {
     <>
       <div className="flex justify-between py-2">
         <span>Blog List</span>
+        <div className='flex justify-center items-center'>
+          <span>Search : </span>&nbsp;
+          <Input type='search' placeholder="by title & code" className='w-100' onChange={(e) => handleSearch(e.target.value)} />
+        </div>
+
         <AddButton add={`/blog-create`} />
       </div>
       <div className="flex justify-between items-center mb-3">
@@ -121,8 +143,9 @@ export default function BlogTable() {
         }
       >
         <TableHeader>
+          <TableColumn>No</TableColumn>
           <TableColumn>Code</TableColumn>
-          <TableColumn>Created Date</TableColumn>
+          <TableColumn>Created</TableColumn>
           <TableColumn>Title</TableColumn>
           <TableColumn>Author Name</TableColumn>
           <TableColumn>Image</TableColumn>
@@ -134,8 +157,9 @@ export default function BlogTable() {
           {items.map((item, index) => (
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
+              <TableCell>{item?.code}</TableCell>
               <TableCell>{item?.createdAt}</TableCell>
-              <TableCell>{item?.title}</TableCell>
+              <TableCell>{item?.title.substring(0, 20)}</TableCell>
               <TableCell>{item?.subTitle}</TableCell>
 
               <TableCell>
@@ -147,7 +171,7 @@ export default function BlogTable() {
                 />
               </TableCell>
               <TableCell>
-                {JSON.parse(item?.description)[0].desc.substring(0, 20)}...
+                {JSON.parse(item?.description)[0]?.desc?.substring(0, 20)}...
               </TableCell>
 
               <TableCell className="flex">
@@ -182,7 +206,7 @@ export default function BlogTable() {
                   color="danger"
                   className="bg-red-500 p-2 rounded-lg text-[#fff]"
                   onClick={() => handleDelete()}
-                  // onKeyDown={handleKeyDown}
+                // onKeyDown={handleKeyDown}
                 >
                   Yes, I am sure
                   {/* <Kbd className='bg-danger-500' keys={["enter"]}></Kbd> */}

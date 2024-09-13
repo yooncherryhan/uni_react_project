@@ -16,6 +16,7 @@ export default function BlogCreate() {
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [code, setCode] = useState('')
   const [newDesc, setNewDesc] = useState([]);
 
   const {
@@ -47,6 +48,7 @@ export default function BlogCreate() {
 
     formData.append("title", title);
     formData.append("subTitle", subTitle);
+    formData.append("code", code);
     formData.append("description", JSON.stringify(newDesc));
     formData.append("createdAt", formattedDate);
     formData.append("image", image);
@@ -67,6 +69,16 @@ export default function BlogCreate() {
       <form onSubmit={handleSubmit(create)}>
         <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1">
           <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
+            <label className="text-sm font-semibold">Code</label>
+            <Input
+              type="text"
+              placeholder="Enter code"
+              variant={variant}
+              onChange={(e) => setCode(e.target.value)}
+              labelPlacement="outside"
+            />
+          </div>
+          <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
             <label className="text-sm font-semibold">Blog Title</label>
             <Input
               type="text"
@@ -76,6 +88,10 @@ export default function BlogCreate() {
               labelPlacement="outside"
             />
           </div>
+
+        </div>
+
+        <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1">
           <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-2 gap-4">
             <label className="text-sm font-semibold">Sub Title</label>
             <Input
@@ -85,9 +101,6 @@ export default function BlogCreate() {
               onChange={(e) => setSubTitle(e.target.value)}
             />
           </div>
-        </div>
-
-        <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1">
           <div className="flex flex-col w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-1">
             <label className="text-sm font-semibold">Blog Photo</label>
 
@@ -97,18 +110,18 @@ export default function BlogCreate() {
               variant={variant}
               labelPlacement="outside"
               onChange={handleImage}
-              className="border-1 border-slate-300 rounded-md h-10"
+              className="border-1 border-slate-300 rounded-md h-10 mt-2"
             />
           </div>
+
         </div>
 
         <div className=" w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
           <label
-            className={`text-sm font-semibold ${
-              errors.description && errors.description.type === "required"
-                ? "text-[#f31260]"
-                : ""
-            }`}
+            className={`text-sm font-semibold ${errors.description && errors.description.type === "required"
+              ? "text-[#f31260]"
+              : ""
+              }`}
           >
             Blog Description
           </label>
@@ -155,7 +168,7 @@ export default function BlogCreate() {
         </div>
 
         <div className="flex justify-center gap-10 py-4">
-          <CancelButton back={`/subject`} />
+          <CancelButton back={`/blog`} />
           <CreateTypeButton type={`submit`} />
         </div>
       </form>

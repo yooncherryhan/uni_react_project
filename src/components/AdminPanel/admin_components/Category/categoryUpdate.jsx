@@ -9,11 +9,13 @@ export default function CategoryUpdate() {
     const location = useLocation()
     const ID = location.pathname.split('/')[2]
     const [title, setTitle] = useState('')
+    const [code, setCode] = useState('')
     const [description, setDescription] = useState('')
     const handleUpdate = async () => {
         const data = {
             id: ID,
             title: title,
+            code: code,
             description: description
         }
         await Update('categories/', ID, data, { headers: { "Content-Type": "application/json" } }, 'Category')
@@ -23,6 +25,7 @@ export default function CategoryUpdate() {
         const getUpdate = async () => {
             const updateData = await GetDetail('categories/', ID)
             setTitle(updateData.data.title)
+            setCode(updateData.data?.code)
             setDescription(updateData.data.description)
         }
         getUpdate()
@@ -30,10 +33,21 @@ export default function CategoryUpdate() {
     return (
         <div className='container flex flex-col gap-4'>
             <div>
-                <label>Title</label>
+                <label>Code</label>
+                <Input type='text' value={code} onChange={(e) => setCode(e.target.value)} />
             </div>
-            <Input type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
-            <Textarea type='text' label='Description' value={description} labelPlacement='outside' onChange={(e) => setDescription(e.target.value)} />
+            <div>
+                <label>Title</label>
+                <Input type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+            </div>
+
+            <div>
+                <label>Description</label>
+                <Textarea type='text' label='Description' value={description} labelPlacement='outside' onChange={(e) => setDescription(e.target.value)} />
+            </div>
+
+
+
             <div className='flex gap-2 justify-center'>
 
                 <CancelButton back={`/category`} />

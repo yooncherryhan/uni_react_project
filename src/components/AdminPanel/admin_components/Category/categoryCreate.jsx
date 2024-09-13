@@ -7,10 +7,12 @@ import { useNavigate } from 'react-router-dom'
 export default function CategoryCreate() {
     const navigate = useNavigate()
     const [title, setTitle] = useState('')
+    const [code, setCode] = useState('')
     const [description, setDescription] = useState('')
     const handleCreate = async () => {
         const data = {
             title: title,
+            code: code,
             description: description
         }
         await Post('category', data, { headers: { "Content-Type": "application/json" } }, 'Category')
@@ -19,13 +21,22 @@ export default function CategoryCreate() {
     return (
         <div className='container flex flex-col gap-4'>
             <div>
-                <label>Title</label>
+                <label>Code</label>
+                <Input type='text' onChange={(e) => setCode(e.target.value)} />
             </div>
-            <Input type='text' onChange={(e) => setTitle(e.target.value)} />
-            <Textarea type='text' label='Description' labelPlacement='outside' onChange={(e) => setDescription(e.target.value)} />
+            <div>
+                <label>Title</label>
+                <Input type='text' onChange={(e) => setTitle(e.target.value)} />
+            </div>
+
+            <div>
+                <label>Description</label>
+                <Textarea type='text' label='' labelPlacement='outside' onChange={(e) => setDescription(e.target.value)} />
+            </div>
+
             <div className='flex gap-2 justify-center'>
 
-                <CancelButton />
+                <CancelButton back={`/category`} />
                 <CreateButton create={handleCreate} />
 
             </div>

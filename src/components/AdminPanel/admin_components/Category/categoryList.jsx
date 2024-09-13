@@ -14,7 +14,8 @@ import {
     useDisclosure,
     Pagination,
     Button,
-    Kbd
+    Kbd,
+    Input
 } from "@nextui-org/react";
 // import { Button } from '@nextui-org/button'
 import React, { useEffect, useState } from "react";
@@ -28,24 +29,36 @@ export default function UserTable() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const ID = localStorage.getItem("data");
     // console.log(ID, "da");
+
     const [userData, setUserData] = useState([]);
     const [allCategoryList, setAllCategoryList] = useState([]);
     const [delID, setDelID] = useState(null);
     const [page, setPage] = React.useState(1);
     const [pages, setPages] = React.useState(1);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+    const [filterList, setFilterList] = useState([])
     const items = React.useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
-        return allCategoryList.slice(start, end);
-    }, [page, allCategoryList]);
+        return (filterList[0] ? filterList : allCategoryList).slice(start, end);
+    }, [page, allCategoryList, filterList]);
 
-    // const handleKeyDown = (event) => {
-    //     if (event.key === "Enter" && isOpen) {
-    //         handleDelete();
-    //     }
-    // };
+    const handleSearch = (value) => {
+        if (value) {
+            setFilterList(allCategoryList.filter(
+                (el) =>
+                    el.title?.toLowerCase().includes(value.toLowerCase())
+            ))
+            console.log(items.filter(
+                (el) =>
+                    el.title?.toLowerCase().includes(value.toLowerCase())
+            ), 'val')
+        } else {
+            setFilterList(allCategoryList)
+            console.log(allCategoryList, 'n val')
+        }
+
+    };
 
     const onRowsChange = (event) => {
         const newRowsPerPage = parseInt(event.target.value);
@@ -102,7 +115,12 @@ export default function UserTable() {
     return (
         <>
             <div className='flex justify-between py-2'>
-                <span>Category List</span>
+                <span className='text-[20px] font-medium'>Category List</span>
+                <div className='flex justify-center items-center'>
+                    <span>Search : </span>&nbsp;
+                    <Input type='search' placeholder="by title & code" className='w-100' onChange={(e) => handleSearch(e.target.value)} />
+                </div>
+
                 <AddButton add={`/category-create`} />
             </div>
             <div className='flex justify-between items-center mb-3'>
@@ -141,6 +159,7 @@ export default function UserTable() {
                     </div>
                 }>
                 <TableHeader>
+                    <TableColumn>No</TableColumn>
                     <TableColumn>Code</TableColumn>
                     <TableColumn>Title</TableColumn>
                     <TableColumn>Description</TableColumn>
@@ -151,6 +170,7 @@ export default function UserTable() {
                     {items.map((item, index) => (
                         <TableRow key={index}>
                             <TableCell>{index + 1}</TableCell>
+                            <TableCell>{item?.code}</TableCell>
                             <TableCell>{item?.title}</TableCell>
                             <TableCell>{item?.description}</TableCell>
 
