@@ -7,6 +7,56 @@ import { ToastContainer, toast } from "react-toastify";
 import MessageData from "./messageData";
 import Swal from "sweetalert2";
 export default function Contact() {
+    // <<<<<<< HEAD
+    //     const [message, setMessage] = useState("");
+    //     const [name, setName] = useState('')
+    //     const [email, setEmail] = useState('')
+    //     const sendEmail = () => {
+
+
+    //         const templateParams = {
+    //             to_name: "Kaung Set Hein",
+    //             from_name: `${name}`,
+    //             message: `${message} from ${name}(${email})`,
+    //         };
+    //         if (message && email && name) {
+    //             emailjs
+    //                 .send(
+    //                     "service_44wy4vp",
+    //                     "template_ikwndyi",
+    //                     templateParams,
+    //                     "U564NjwQLLQB7I92O"
+    //                 )
+    //                 .then(
+    //                     (response) => {
+    //                         Swal.fire({
+    //                             title: "Successful!",
+    //                             text: `Sent Email`,
+    //                             icon: "success",
+    //                             // showCancelButton: true,
+
+    //                             showConfirmButton: false,
+    //                             timer: 2000,
+    //                         });
+    //                         setMessage(message ? '' : '')
+    //                         setEmail(email ? '' : '')
+    //                         setName(name ? '' : '')
+    //                     },
+    //                     (error) => {
+    //                         console.error("Error sending email:", error);
+    //                     }
+    //                 );
+    //         } else {
+    //             Swal.fire({
+    //                 title: "Something Wrong",
+    //                 text: `Try again!`,
+    //                 icon: "error",
+    //                 // showCancelButton: true,
+
+    //                 showConfirmButton: false,
+    //                 timer: 2000,
+    //             });
+    //         }
     const [message, setMessage] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
