@@ -51,7 +51,7 @@ const BlogDetail = () => {
                 JSON.parse(blogList.description).map((item) => (
                   <div className="flex flex-col gap-4">
                     <p className="text-[18px] font-medium text-[#000] py-4">
-                      {item.desc}
+                      {item?.desc}
                     </p>
                   </div>
                 ))}

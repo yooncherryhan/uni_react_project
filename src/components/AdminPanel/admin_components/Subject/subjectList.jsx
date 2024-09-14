@@ -14,6 +14,7 @@ import {
   Pagination,
   Button,
   Kbd,
+  Input,
 } from "@nextui-org/react";
 // import { Button } from '@nextui-org/button'
 import React, { useEffect, useState } from "react";
@@ -38,18 +39,38 @@ export default function SubjectTable() {
   const [page, setPage] = React.useState(1);
   const [pages, setPages] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  const [filterList, setFilterList] = useState([])
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    return allSubjectList.slice(start, end);
-  }, [page, allSubjectList]);
+    return (filterList[0] ? filterList : allSubjectList).slice(start, end);
+  }, [page, allSubjectList, filterList]);
 
-  // const handleKeyDown = (event) => {
-  //     if (event.key === "Enter" && isOpen) {
-  //         handleDelete();
-  //     }
-  // };
+  const handleSearch = (value) => {
+    if (value) {
+      const filterData = allSubjectList.filter(
+        (el) =>
+          el.title?.toLowerCase().includes(value.toLowerCase()) ||
+          el.code?.toLowerCase().includes(value.toLowerCase())
+
+      )
+      setFilterList(filterData)
+      setPages(
+        filterData.length % rowsPerPage === 0
+          ? filterData.length / rowsPerPage
+          : filterData.length / rowsPerPage + 1
+      );
+    } else {
+      setFilterList(allSubjectList)
+      setPages(
+        allSubjectList.length % rowsPerPage === 0
+          ? allSubjectList.length / rowsPerPage
+          : allSubjectList.length / rowsPerPage + 1
+      );
+    }
+
+  };
+
 
   const onRowsChange = (event) => {
     const newRowsPerPage = parseInt(event.target.value);
@@ -77,11 +98,7 @@ export default function SubjectTable() {
     };
     getAllSubject();
     getUser();
-    // document.addEventListener("keydown", handleKeyDown);
 
-    // return () => {
-    //     document.removeEventListener("keydown", handleKeyDown);
-    // };
   }, [isOpen, rowsPerPage]);
 
   const handleOpen = (event) => {
@@ -106,6 +123,10 @@ export default function SubjectTable() {
     <>
       <div className="flex justify-between py-2">
         <span>Subject List</span>
+        <div className='flex justify-center items-center'>
+          <span>Search : </span>&nbsp;
+          <Input type='search' placeholder="by title & code" className='w-100' onChange={(e) => handleSearch(e.target.value)} />
+        </div>
         <AddButton add={`/subject-create`} />
       </div>
       <div className="flex justify-between items-center mb-3">
@@ -146,6 +167,7 @@ export default function SubjectTable() {
         }
       >
         <TableHeader>
+          <TableColumn>No</TableColumn>
           <TableColumn>Code</TableColumn>
           <TableColumn>Start Date</TableColumn>
           <TableColumn>Category</TableColumn>
@@ -161,6 +183,7 @@ export default function SubjectTable() {
           {items.map((item, index) => (
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
+              <TableCell>{item?.code}</TableCell>
               <TableCell>{item?.startDate}</TableCell>
               <TableCell>{item.category?.title}</TableCell>
               <TableCell>{item?.title}</TableCell>
@@ -208,7 +231,7 @@ export default function SubjectTable() {
                   color="danger"
                   className="bg-red-500 p-2 rounded-lg text-[#fff]"
                   onClick={() => handleDelete()}
-                  // onKeyDown={handleKeyDown}
+                // onKeyDown={handleKeyDown}
                 >
                   Yes, I am sure
                   {/* <Kbd className='bg-danger-500' keys={["enter"]}></Kbd> */}

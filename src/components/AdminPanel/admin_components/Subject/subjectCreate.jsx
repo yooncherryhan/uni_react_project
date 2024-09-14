@@ -19,6 +19,7 @@ export default function SubjectCreate() {
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
     const [refName, setRefName] = useState('');
+    const [code, setCode] = useState('')
     // const [data, setData] = useState([]);
     // const dataArr = [...data, instructors?.split(',')]
     // console.log(JSON.stringify({ data: instructors?.split(',') }), 'inst')
@@ -55,7 +56,7 @@ export default function SubjectCreate() {
     };
     const create = async () => {
         const formData = new FormData();
-
+        formData.append("code", code);
         formData.append("title", title);
         formData.append("category", category);
         formData.append("description", desc);
@@ -66,12 +67,24 @@ export default function SubjectCreate() {
         formData.append("duration", duration);
         formData.append("refLink", refName);
         formData.append("videoLink", JSON.stringify(newVideoLink));
+        if (new Date(toDate) < new Date(fromDate)) {
+            Swal.fire({
+                title: 'Check End Date!',
+                text: "Try again, Please.",
+                icon: "warning",
+                // showCancelButton: true,
 
-        await Post('subject', formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        }, 'Subject')
+                showConfirmButton: false,
+                timer: 5000,
+            });
+        } else {
+            await Post('subject', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }, 'Subject')
+        }
+
 
     };
 
@@ -89,6 +102,16 @@ export default function SubjectCreate() {
         <div className='gap-4'>
             <form onSubmit={handleSubmit(create)}>
                 <div className='flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1'>
+                    <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
+                        <label className="text-sm font-semibold">Code</label>
+                        <Input
+                            type="text"
+                            placeholder="Enter code"
+                            variant={variant}
+                            onChange={(e) => setCode(e.target.value)}
+                            labelPlacement="outside"
+                        />
+                    </div>
                     <div className='block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2'>
                         <label className='text-sm font-semibold'>Subject Name</label>
                         <Input
@@ -99,17 +122,6 @@ export default function SubjectCreate() {
                             onChange={(e) => setTitle(e.target.value)}
                             labelPlacement='outside'
                         />
-                    </div>
-                    <div className='block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-2 gap-4'>
-                        <label className='text-sm font-semibold'>Duration</label>
-                        <Input
-                            type='text'
-                            variant={variant}
-                            placeholder="eg: 1,2,3 month or week"
-                            onChange={(e) => setDuration(e.target.value)}
-
-                        />
-
                     </div>
 
                 </div>
@@ -215,17 +227,32 @@ export default function SubjectCreate() {
                         labelPlacement='outside'
                         onChange={(e) => setFromDate(e.target.value)}
                     />
-                    <Input
-                        type='date'
-                        label='End Date'
-                        placeholder='Date'
-                        variant={variant}
-                        onChange={(e) => setToDate(e.target.value)}
-                        labelPlacement='outside'
-                    />
+
+
+                    {new Date(toDate) < new Date(fromDate) ? (
+                        <Input
+                            type='date'
+                            label='End Date'
+                            placeholder='Date'
+                            variant={variant}
+                            className='text-red-500'
+                            onChange={(e) => setToDate(e.target.value)}
+                            labelPlacement='outside'
+                        />
+                    ) : (
+                        <Input
+                            type='date'
+                            label='End Date'
+                            placeholder='Date'
+                            variant={variant}
+
+                            onChange={(e) => setToDate(e.target.value)}
+                            labelPlacement='outside'
+                        />
+                    )}
                     <div></div>
                 </div>
-                <div className='flex '>
+                <div className='grid grid-cols-2 mb-6 md:mb-0 gap-4 mt-1 '>
 
                     <div className='flex flex-col gap-2 w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-1'>
                         <label className='text-sm font-semibold'>Refrence Name</label>
@@ -237,6 +264,18 @@ export default function SubjectCreate() {
                         />
 
                     </div>
+                    <div className='block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-2 gap-4'>
+                        <label className='text-sm font-semibold'>Duration</label>
+                        <Input
+                            type='text'
+                            variant={variant}
+                            placeholder="eg: 1,2,3 month or week"
+                            onChange={(e) => setDuration(e.target.value)}
+
+                        />
+
+                    </div>
+
 
                 </div>
                 <div className=' w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2'>

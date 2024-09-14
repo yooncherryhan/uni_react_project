@@ -28,7 +28,7 @@ export default function SubjectUpdate() {
   const [videoLinks, setVideoLinks] = useState("");
   const [price, setPrice] = useState("");
   const [duration, setDuration] = useState("");
-
+  const [code, setCode] = useState('')
   const {
     register,
     handleSubmit,
@@ -56,6 +56,7 @@ export default function SubjectUpdate() {
   const update = async () => {
     const formData = new FormData();
     formData.append("id", ID);
+    formData.append("code", code);
     formData.append("title", title);
     formData.append("category", category ? category : categoryID);
     formData.append("description", desc);
@@ -66,24 +67,37 @@ export default function SubjectUpdate() {
     formData.append("duration", duration);
     formData.append("refLink", refName);
     formData.append("videoLink", JSON.stringify(newVideoLink));
+    if (new Date(toDate) < new Date(fromDate)) {
+      Swal.fire({
+        title: 'Check End Date!',
+        text: "Try again, Please.",
+        icon: "warning",
+        // showCancelButton: true,
 
-    await Update(
-      "subjects/",
-      ID,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    } else {
+
+      await Update(
+        "subjects/",
+        ID,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
-      },
-      "Subject"
-    );
+        "Subject"
+      );
+    }
+
   };
 
   useEffect(() => {
     const getSubDetail = async () => {
       const subDetail = await GetDetail("subjects/", ID);
-      console.log(subDetail.data, "sub detail");
+      setCode(subDetail.data?.code)
       setTitle(subDetail.data.title);
       setPrice(subDetail.data?.price);
       setDuration(subDetail.data?.duration);
@@ -109,6 +123,17 @@ export default function SubjectUpdate() {
       <form onSubmit={handleSubmit(update)}>
         <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1">
           <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
+            <label className="text-sm font-semibold">Code</label>
+            <Input
+              type="text"
+              placeholder="Enter code"
+              variant={variant}
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              labelPlacement="outside"
+            />
+          </div>
+          <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
             <label className="text-sm font-semibold">Subject Name</label>
             <Input
               type="text"
@@ -119,16 +144,7 @@ export default function SubjectUpdate() {
               labelPlacement="outside"
             />
           </div>
-          <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-2 gap-4">
-            <label className="text-sm font-semibold">Duration</label>
-            <Input
-              type="text"
-              variant={variant}
-              value={duration}
-              placeholder="eg: 1,2,3 month or week"
-              onChange={(e) => setDuration(e.target.value)}
-            />
-          </div>
+
         </div>
         <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-1">
           <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 mt-2">
@@ -228,18 +244,31 @@ export default function SubjectUpdate() {
             labelPlacement="outside"
             onChange={(e) => setFromDate(e.target.value)}
           />
-          <Input
-            type="date"
-            label="End Date"
-            placeholder="Date"
-            value={toDate}
-            variant={variant}
-            onChange={(e) => setToDate(e.target.value)}
-            labelPlacement="outside"
-          />
+
+          {new Date(toDate) < new Date(fromDate) ? (
+            <Input
+              type='date'
+              label='End Date'
+              placeholder='Date'
+              variant={variant}
+              className='text-red-500'
+              onChange={(e) => setToDate(e.target.value)}
+              labelPlacement='outside'
+            />
+          ) : (
+            <Input
+              type="date"
+              label="End Date"
+              placeholder="Date"
+              value={toDate}
+              variant={variant}
+              onChange={(e) => setToDate(e.target.value)}
+              labelPlacement="outside"
+            />
+          )}
           <div></div>
         </div>
-        <div className="flex ">
+        <div className="grid grid-cols-2 mb-6 md:mb-0 gap-4 mt-3 ">
           <div className="flex flex-col gap-2 w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-1">
             <label className="text-sm font-semibold">Refrence Name</label>
             <Input
@@ -247,6 +276,16 @@ export default function SubjectUpdate() {
               variant={variant}
               value={refName}
               onChange={(e) => setRefName(e.target.value)}
+            />
+          </div>
+          <div className="block w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 mt-2 gap-4">
+            <label className="text-sm font-semibold">Duration</label>
+            <Input
+              type="text"
+              variant={variant}
+              value={duration}
+              placeholder="eg: 1,2,3 month or week"
+              onChange={(e) => setDuration(e.target.value)}
             />
           </div>
         </div>

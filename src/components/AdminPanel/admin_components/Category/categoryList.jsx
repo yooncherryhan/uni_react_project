@@ -45,17 +45,25 @@ export default function UserTable() {
 
     const handleSearch = (value) => {
         if (value) {
-            setFilterList(allCategoryList.filter(
+            const filterData = allCategoryList.filter(
                 (el) =>
-                    el.title?.toLowerCase().includes(value.toLowerCase())
-            ))
-            console.log(items.filter(
-                (el) =>
-                    el.title?.toLowerCase().includes(value.toLowerCase())
-            ), 'val')
+                    el.title?.toLowerCase().includes(value.toLowerCase()) ||
+                    el.code?.toLowerCase().includes(value.toLowerCase())
+
+            )
+            setFilterList(filterData)
+            setPages(
+                filterData.length % rowsPerPage === 0
+                    ? filterData.length / rowsPerPage
+                    : filterData.length / rowsPerPage + 1
+            );
         } else {
             setFilterList(allCategoryList)
-            console.log(allCategoryList, 'n val')
+            setPages(
+                allCategoryList.length % rowsPerPage === 0
+                    ? allCategoryList.length / rowsPerPage
+                    : allCategoryList.length / rowsPerPage + 1
+            );
         }
 
     };

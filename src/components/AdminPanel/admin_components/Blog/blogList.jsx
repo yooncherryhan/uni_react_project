@@ -48,17 +48,25 @@ export default function BlogTable() {
 
   const handleSearch = (value) => {
     if (value) {
-      setFilterList(allCategoryList.filter(
+      const filterData = allBlogList.filter(
         (el) =>
-          el.title?.toLowerCase().includes(value.toLowerCase())
-      ))
-      console.log(items.filter(
-        (el) =>
-          el.title?.toLowerCase().includes(value.toLowerCase())
-      ), 'val')
+          el.title?.toLowerCase().includes(value.toLowerCase()) ||
+          el.code?.toLowerCase().includes(value.toLowerCase())
+      )
+      setFilterList(filterData)
+      setPages(
+        filterData.length % rowsPerPage === 0
+          ? filterData.length / rowsPerPage
+          : filterData.length / rowsPerPage + 1
+      );
     } else {
-      setFilterList(allCategoryList)
-      console.log(allCategoryList, 'n val')
+      setFilterList(allBlogList)
+      setPages(
+        allBlogList.length % rowsPerPage === 0
+          ? allBlogList.length / rowsPerPage
+          : allBlogList.length / rowsPerPage + 1
+      );
+      // console.log(allCategoryList, 'n val')
     }
 
   };

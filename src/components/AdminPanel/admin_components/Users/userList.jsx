@@ -14,7 +14,8 @@ import {
     useDisclosure,
     Pagination,
     Button,
-    Kbd
+    Kbd,
+    Input
 } from "@nextui-org/react";
 // import { Button } from '@nextui-org/button'
 import React, { useEffect, useState } from "react";
@@ -32,12 +33,37 @@ export default function UserTable() {
     const [page, setPage] = React.useState(1);
     const [pages, setPages] = React.useState(1);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+    const [filterList, setFilterList] = useState([])
     const items = React.useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
-        return allUserList.slice(start, end);
-    }, [page, allUserList]);
+        return (filterList[0] ? filterList : allUserList).slice(start, end);
+    }, [page, allUserList, filterList]);
+
+    const handleSearch = (value) => {
+        if (value) {
+            const filterData = allUserList.filter(
+                (el) =>
+                    el.name?.toLowerCase().includes(value.toLowerCase()) ||
+                    el.email?.toLowerCase().includes(value.toLowerCase())
+
+            )
+            setFilterList(filterData)
+            setPages(
+                filterData.length % rowsPerPage === 0
+                    ? filterData.length / rowsPerPage
+                    : filterData.length / rowsPerPage + 1
+            );
+        } else {
+            setFilterList(allUserList)
+            setPages(
+                allUserList.length % rowsPerPage === 0
+                    ? allUserList.length / rowsPerPage
+                    : allUserList.length / rowsPerPage + 1
+            );
+        }
+
+    };
 
     const onRowsChange = (event) => {
         const newRowsPerPage = parseInt(event.target.value);
@@ -96,6 +122,10 @@ export default function UserTable() {
         <>
             <div className='flex justify-between py-2'>
                 <span>User List</span>
+                <div className='flex justify-center items-center'>
+                    <span>Search : </span>&nbsp;
+                    <Input type='search' placeholder="by title & code" className='w-100' onChange={(e) => handleSearch(e.target.value)} />
+                </div>
 
             </div>
             <div className='flex justify-between items-center mb-3'>

@@ -43,7 +43,7 @@ const BlogPage = () => {
                     </span>
                     <p className="w-full">
                       {item.description &&
-                        JSON.parse(item.description)[0].desc.substring(0, 20)}
+                        JSON.parse(item.description)[0]?.desc?.substring(0, 20)}
                       ...
                       {/* {JSON.parse(item?.description)[0].desc.substring(0, 50)} */}
                       {/* {console.log(JSON.parse(item.description)[0].desc)} */}

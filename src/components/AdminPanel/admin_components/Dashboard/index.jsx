@@ -78,20 +78,18 @@ const Container = ({ text, children }) => {
   return (
     <div>
       <div
-        className={`top-0 left-0 w-[20vw] 2xl:w-[18vw] bg-blue-950 p-5 flex flex-col gap-3  text-white fixed h-screen scroll-smooth overflow-y-scroll z-40  ease-in-out duration-300 ${
-          showSidebar ? " translate-x-0" : " -translate-x-[180px]"
-        }`}
+        className={`top-0 left-0 w-[20vw] 2xl:w-[18vw] bg-blue-950 p-5 flex flex-col gap-3  text-white fixed h-screen scroll-smooth overflow-y-scroll z-40  ease-in-out duration-300 ${showSidebar ? " translate-x-0" : " -translate-x-[180px]"
+          }`}
       >
         {showSidebar ? (
           <>
             <div className=" h-[40px] overflow-auto">
               <button
                 onClick={() => setShowSidebar(!showSidebar)}
-                className={`fixed  z-30 flex items-center cursor-pointer ${
-                  showSidebar
+                className={`fixed  z-30 flex items-center cursor-pointer ${showSidebar
                     ? "left-[100px] translate-x-[100px]"
                     : "left-[200px] -translate-x-[100px]"
-                } top-6`}
+                  } top-6`}
               >
                 <FontAwesomeIcon icon={faXmark} size="xl" />
               </button>
@@ -153,14 +151,16 @@ const Container = ({ text, children }) => {
             >
               <FontAwesomeIcon icon={faUsers} size="md" />
             </Link>
-            <span className="text-[20px] md:text-[25px] text-end font-semibold text-white">
-              <FontAwesomeIcon icon={faList} size="lg" />
-            </span>
-            <span className="text-[20px] md:text-[25px] text-end font-semibold text-white">
-              <FontAwesomeIcon icon={faBook} size="lg" />
-            </span>
             <Link
-              to="/subject"
+              to="/category" className="text-[20px] md:text-[25px] text-end font-semibold text-white">
+              <FontAwesomeIcon icon={faList} size="lg" />
+            </Link>
+            <Link
+              to="/subject" className="text-[20px] md:text-[25px] text-end font-semibold text-white">
+              <FontAwesomeIcon icon={faBook} size="lg" />
+            </Link>
+            <Link
+              to="/blog"
               className="text-[20px] md:text-[25px] text-end font-semibold text-white"
             >
               <FontAwesomeIcon icon={faBlog} size="lg" />
@@ -177,11 +177,10 @@ const Container = ({ text, children }) => {
         )}
       </div>
       <div
-        className={`top-0 right-0   flex flex-col   text-white fixed overflow-scroll scroll-smooth  z-40  ease-in-out duration-300 ${
-          showSidebar
+        className={`top-0 right-0   flex flex-col   text-white fixed overflow-scroll scroll-smooth  z-40  ease-in-out duration-300 ${showSidebar
             ? " translate-x-0 w-[80vw]"
             : "  -translate-x-[12px] w-[92vw]"
-        }`}
+          }`}
       >
         <div className="h-[100px] text-black flex justify-between items-center mx-2">
           <Image src={Logo} className="w-[150px] h-[70px]" />
